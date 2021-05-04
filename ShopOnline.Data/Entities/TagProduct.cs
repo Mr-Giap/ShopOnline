@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class ImageProduct : DomainEntity<int>
+    public class TagProduct: DomainEntity<int>
     {
         public int IdProduct { get; set; }
-        public int IdImage { get; set; }
-        // khóa ngoại của 2 bảng n- n (Products and Images)
+        public int IdTag { get; set; }
         public IEnumerable<Product> Products { get; set; }
-        public IEnumerable<Image> Images { get; set; }
-
+        public IEnumerable<Tag> Tags { get; set; }
     }
 }

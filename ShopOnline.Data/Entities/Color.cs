@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class Image:DomainEntity<int>
+    public class Color:DomainEntity<int>
     {
-        public string src { get; set; }
+        public string Name { get; set; }
     }
 }
