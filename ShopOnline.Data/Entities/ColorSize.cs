@@ -13,5 +13,6 @@ namespace ShopOnline.Data.Entities
 
         public IEnumerable<Size> sizes { get; set; }
         public IEnumerable<ColorProduct> colorProducts { get; set; }
+
     }
 }
