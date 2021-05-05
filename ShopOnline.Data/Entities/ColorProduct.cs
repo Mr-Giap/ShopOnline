@@ -11,6 +11,7 @@ namespace ShopOnline.Data.Entities
         public int IdProduct { get; set; }
         public int IdColor{ get; set; }
 
+
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Color> colors { get; set; }
     }
