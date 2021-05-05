@@ -1,6 +1,7 @@
 ﻿using ShopOnline.Data.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace ShopOnline.Data.Entities
 {
     public class Product : DomainEntity<int>, IHasSeo, IHasDate, IHasSort
     {
+        [StringLength(60, MinimumLength = 3)]
+        [Required]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal PricPromotion { get; set; }
