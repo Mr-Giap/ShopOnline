@@ -1,12 +1,14 @@
 ﻿using ShopOnline.Data.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
+    [Table("Products")]
     public class Product : DomainEntity<int>, IHasDate, IHasSort, IHasSeo
     {
         public string Name { get; set; }
