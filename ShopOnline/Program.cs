@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +13,7 @@ namespace ShopOnline
 {
     public class Program
     {
+        
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();

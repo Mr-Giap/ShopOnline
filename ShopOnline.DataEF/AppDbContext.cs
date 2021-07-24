@@ -14,26 +14,28 @@ namespace ShopOnline.DataEF
 {
     public class AppDbContext: IdentityDbContext<AppUser,AppRole,Guid>
     {
-        public AppDbContext(DbContextOptions options) : base(options) {
+        public AppDbContext(DbContextOptions options) : base(options)
+        {
+
         }
 
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<Cart> carts { get; set; }
-        public DbSet<CartDetail> cartDetails { get; set; }
-        public DbSet<Category> categories { get; set; }
-        public DbSet<Color> colors { get; set; }
-        public DbSet<ColorProduct> colorProducts { get; set; }
-        public DbSet<Image> images { get; set; }
-        public DbSet<ImageProduct> imageProducts { get; set; }
-        public DbSet<ImageSlide> imageSlides { get; set; }
-        public DbSet<Product> products { get; set; }
-        public DbSet<Review> reviews { get; set; }
-        public DbSet<Size> sizes { get; set; }
-        public DbSet<Slide> slides { get; set; }
-        public DbSet<Tag> tags { get; set; }
-        public DbSet<TagProduct> tagProducts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartDetail> CartDetails { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<ColorProduct> ColorProducts { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<ImageProduct> ImageProducts { get; set; }
+        public DbSet<ImageSlide> ImageSlides { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<Slide> Slides { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagProduct> TagProducts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
@@ -51,6 +53,11 @@ namespace ShopOnline.DataEF
 
             //base.OnModelCreating(builder);
         }
+        /// <summary>
+        /// Dùng save chages để ghi đè phương thức datatime ..
+        /// Modified : là dùng để update lại trường đó không muốn xóa cứng. mà chỉ xóa mềm.
+        /// </summary>
+        /// <returns></returns>
         public override int SaveChanges()
         {
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);

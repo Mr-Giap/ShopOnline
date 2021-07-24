@@ -1,17 +1,14 @@
-﻿using ShopOnline.Data.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-
-    [Table("Products")]
-    public class Product : DomainEntity<int>, IHasDate, IHasSort, IHasSeo
+    public class ProductViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
 
@@ -19,7 +16,7 @@ namespace ShopOnline.Data.Entities
         public string Description { get; set; }
         public int Amount { get; set; }
         public int IsShow { get; set; }
-        public DateTime DateCreated { get; set ; }
+        public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
         public int DisplayOrder { get; set; }
         public string SeoDescription { get; set; }

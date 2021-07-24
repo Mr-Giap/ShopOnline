@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
@@ -23,12 +23,13 @@ namespace ShopOnline
         {
             Configuration = configuration;
         }
-
+        // Vòng đời của Dependency Injection: Transient, Singleton và Scoped
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // add database vào severvip
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -38,7 +39,7 @@ namespace ShopOnline
                 .AddDefaultTokenProviders();
 
             // seed data 
-            services.AddTransient<DbInitializer>();
+           services.AddTransient<DbInitializer>();
 
             //services
 
@@ -53,6 +54,7 @@ namespace ShopOnline
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Chạy qua các middiewere từ trên xuống dưới(gọi là 1 vòng đời netcore)
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

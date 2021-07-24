@@ -137,7 +137,7 @@ namespace ShopOnline.DataEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppRole");
+                    b.ToTable("AppRoles");
                 });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.AppUser", b =>
@@ -208,7 +208,7 @@ namespace ShopOnline.DataEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUser");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.Brand", b =>
@@ -264,7 +264,7 @@ namespace ShopOnline.DataEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.CartDetail", b =>
@@ -386,10 +386,25 @@ namespace ShopOnline.DataEF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageSlideId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Src")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("ImageProductId");
+
+                    b.HasIndex("ImageSlideId");
 
                     b.ToTable("Images");
                 });
@@ -463,6 +478,9 @@ namespace ShopOnline.DataEF.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartDetailId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -473,6 +491,9 @@ namespace ShopOnline.DataEF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("IsShow")
@@ -497,6 +518,10 @@ namespace ShopOnline.DataEF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartDetailId");
+
+                    b.HasIndex("ImageProductId");
 
                     b.ToTable("Products");
                 });
@@ -523,7 +548,7 @@ namespace ShopOnline.DataEF.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductsId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Rate")
@@ -531,7 +556,7 @@ namespace ShopOnline.DataEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductsId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
                 });
@@ -564,10 +589,15 @@ namespace ShopOnline.DataEF.Migrations
                     b.Property<DateTime>("DateModifiled")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ImageSlideId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IsShow")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageSlideId");
 
                     b.ToTable("Slides");
                 });
@@ -600,17 +630,17 @@ namespace ShopOnline.DataEF.Migrations
                     b.Property<int>("IdTag")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductsId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TagsId")
+                    b.Property<int?>("TagId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductsId");
+                    b.HasIndex("ProductId");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("TagId");
 
                     b.ToTable("TagProducts");
                 });
@@ -652,6 +682,21 @@ namespace ShopOnline.DataEF.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ShopOnline.Data.Entities.Image", b =>
+                {
+                    b.HasOne("ShopOnline.Data.Entities.Brand", null)
+                        .WithMany("Images")
+                        .HasForeignKey("BrandId");
+
+                    b.HasOne("ShopOnline.Data.Entities.ImageProduct", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ImageProductId");
+
+                    b.HasOne("ShopOnline.Data.Entities.ImageSlide", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ImageSlideId");
+                });
+
             modelBuilder.Entity("ShopOnline.Data.Entities.ImageProduct", b =>
                 {
                     b.HasOne("ShopOnline.Data.Entities.Image", "Image")
@@ -682,33 +727,75 @@ namespace ShopOnline.DataEF.Migrations
                     b.Navigation("Slide");
                 });
 
+            modelBuilder.Entity("ShopOnline.Data.Entities.Product", b =>
+                {
+                    b.HasOne("ShopOnline.Data.Entities.CartDetail", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartDetailId");
+
+                    b.HasOne("ShopOnline.Data.Entities.ImageProduct", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ImageProductId");
+                });
+
             modelBuilder.Entity("ShopOnline.Data.Entities.Review", b =>
                 {
-                    b.HasOne("ShopOnline.Data.Entities.Product", "Products")
+                    b.HasOne("ShopOnline.Data.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductsId");
+                        .HasForeignKey("ProductId");
 
-                    b.Navigation("Products");
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShopOnline.Data.Entities.Slide", b =>
+                {
+                    b.HasOne("ShopOnline.Data.Entities.ImageSlide", null)
+                        .WithMany("Slides")
+                        .HasForeignKey("ImageSlideId");
                 });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.TagProduct", b =>
                 {
-                    b.HasOne("ShopOnline.Data.Entities.Product", "Products")
+                    b.HasOne("ShopOnline.Data.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductsId");
+                        .HasForeignKey("ProductId");
 
-                    b.HasOne("ShopOnline.Data.Entities.Tag", "Tags")
+                    b.HasOne("ShopOnline.Data.Entities.Tag", "Tag")
                         .WithMany()
-                        .HasForeignKey("TagsId");
+                        .HasForeignKey("TagId");
 
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("ShopOnline.Data.Entities.Brand", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("ShopOnline.Data.Entities.CartDetail", b =>
+                {
                     b.Navigation("Products");
-
-                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.Color", b =>
                 {
                     b.Navigation("ColorProducts");
+                });
+
+            modelBuilder.Entity("ShopOnline.Data.Entities.ImageProduct", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ShopOnline.Data.Entities.ImageSlide", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Slides");
                 });
 #pragma warning restore 612, 618
         }

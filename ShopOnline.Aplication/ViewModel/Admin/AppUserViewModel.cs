@@ -1,24 +1,23 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using ShopOnline.Data.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils.Enum;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-    [Table("AppUsers")]
-    public class AppUser : IdentityUser<Guid>,IHasDate
+    public class AppUserViewModel
     {
+        public Guid Id { get; set; }
+
         public string FullName { get; set; }
+        public string Email { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
         public Status Status { get; set; }
+
     }
 }

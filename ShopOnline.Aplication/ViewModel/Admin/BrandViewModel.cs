@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-
-    [Table("Brands")]
-    public class Brand : DomainEntity<int>
+    public class BrandViewModel
     {
+
+        public int Id { get; set; }
         public string Name { get; set; }
         public int ImageId { get; set; }
         public int IsShow { get; set; }
-        public IEnumerable<Image> Images { get; set; }
+        public IEnumerable<ImageViewModel> Images { get; set; }
     }
 }

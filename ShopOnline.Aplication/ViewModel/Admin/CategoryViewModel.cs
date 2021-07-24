@@ -1,19 +1,14 @@
-﻿using ShopOnline.Data.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-    [Table("Categories")]
-    public class Category : DomainEntity<int>, IHasDate, IHasSort, IHasSeo
+   public  class CategoryViewModel
     {
-        [Required]
-        [Display(Name = "ProductName")]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string ParentId { get; set; }
         public bool IsShow { get; set; }

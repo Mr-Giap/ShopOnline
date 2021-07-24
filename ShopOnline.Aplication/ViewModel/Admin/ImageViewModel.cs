@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-
-    [Table("Images")]
-    public class Image : DomainEntity<int>
+    public class ImageViewModel
     {
+        public int Id { get; set; }
         public string Src { get; set; }
     }
 }

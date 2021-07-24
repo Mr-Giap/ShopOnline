@@ -8,4 +8,11 @@
     <ProjectReference Include="..\ShopOnline.DataEF\ShopOnline.DataEF.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Automapper\" />
+    <Folder Include="Implement\" />
+    <Folder Include="Interface\" />
+    <Folder Include="ViewModel\Client\" />
+  </ItemGroup>
+
 </Project>
