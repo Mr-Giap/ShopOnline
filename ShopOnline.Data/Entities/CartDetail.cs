@@ -1,15 +1,22 @@
-﻿using System;
+﻿using ShopOnline.Data.Interface;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class CartDetail:DomainEntity<int>
+    [Table("CartDetails")]
+
+    public class CartDetail:DomainEntity<int>,IHasDate
     {
         public int ProductId { get; set; }
         public int Amount { get; set; }
         public decimal Price { get; set; }
+        public virtual Product Product { get; set; }
+        public DateTime DateCreated { get; set ; }
+        public DateTime DateModifiled { get ;set; }
     }
 }

@@ -1,16 +1,14 @@
-﻿using ShopOnline.Data.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-    [Table("Slides")]
-    public class Slide : DomainEntity<int>, IHasDate, IHasSort
+public    class SlideViewModel
     {
+        public int Id { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
         public int DisplayOrder { get; set; }

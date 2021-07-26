@@ -1,19 +1,13 @@
-﻿using ShopOnline.Data.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Aplication.ViewModel.Admin
 {
-    [Table("Products")]
-    public class Product : DomainEntity<int>, IHasSeo, IHasDate, IHasSort
+  public  class ProductViewModel
     {
-        [StringLength(60, MinimumLength = 3)]
-        [Required]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal PricPromotion { get; set; }
