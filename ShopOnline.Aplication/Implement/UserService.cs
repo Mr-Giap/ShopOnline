@@ -125,11 +125,14 @@ namespace ShopOnline.Aplication.Implement
             if (updateUser != null)
             {
                 updateUser.FullName = user.FullName;
-
+                updateUser.Address = user.Address;
+                updateUser.Avatar = user.Avatar;
+                updateUser.status = Utils.Enum.Status.Active;
+                updateUser.PhoneNumber = user.PhoneNumber;
                 var result = await _userManager.UpdateAsync(updateUser);
-                return 
+                return _mapper.Map<AppUserViewModel>(updateUser);
             }
-
+            return null;
         }
 
       
