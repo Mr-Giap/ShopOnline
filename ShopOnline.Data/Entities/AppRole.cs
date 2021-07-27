@@ -13,6 +13,7 @@ namespace ShopOnline.Data.Entities
 
     public class AppRole :IdentityRole<Guid>,IHasDate
     {
+
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
     }

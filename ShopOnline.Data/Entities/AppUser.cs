@@ -11,6 +11,22 @@ namespace ShopOnline.Data.Entities
 {
    public class AppUser: IdentityUser<Guid>,IHasDate
     {
+        public AppUser()
+        {
+        }
+
+        public AppUser(Guid id, string email, string username, string phonenumber, string fullName, string address, string avatar, Status status)
+        {
+            Id = id;
+            Email = email;
+            UserName = username;
+            FullName = fullName;
+            Address = address;
+            Avatar = avatar;
+            this.status = status;
+            PhoneNumber = phonenumber;
+        }
+
         public string FullName { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }

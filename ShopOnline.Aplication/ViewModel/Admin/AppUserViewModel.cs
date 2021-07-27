@@ -19,5 +19,8 @@ namespace ShopOnline.Aplication.ViewModel.Admin
         public Status status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
+        public string PassWord { get; set; }
+        public List<AppRoleViewModel> roles { get; set; }
+
     }
 }

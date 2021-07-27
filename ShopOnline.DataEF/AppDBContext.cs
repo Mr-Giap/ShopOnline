@@ -40,8 +40,8 @@ namespace ShopOnline.DataEF
         public DbSet<Tag> tags { get; set; }
         public DbSet<TagProduct> tagProducts { get; set; }
 
-
-
+        public DbSet<Bill> bills { get; set; }
+        public DbSet<BillDetail> billDetails { get; set; }
 
 
         public override int SaveChanges()
