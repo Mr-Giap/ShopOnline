@@ -12,6 +12,23 @@ namespace ShopOnline.Data.Entities
     [Table("Categories")]
     public class Category : DomainEntity<int>, IHasDate, IHasSort, IHasSeo
     {
+        public Category()
+        {
+
+        }
+
+        public Category(int id,string name, string parentId, bool isShow, int displayOrder, string seoDescription, string seoTitle, string seoKeyWord)
+        {
+            Id = id;
+            Name = name;
+            ParentId = parentId;
+            IsShow = isShow;
+            DisplayOrder = displayOrder;
+            SeoDescription = seoDescription;
+            SeoTitle = seoTitle;
+            SeoKeyWord = seoKeyWord;
+        }
+
         [Required]
         [Display(Name = "ProductName")]
         public string Name { get; set; }
@@ -23,5 +40,6 @@ namespace ShopOnline.Data.Entities
         public string SeoDescription { get; set; }
         public string SeoTitle { get; set; }
         public string SeoKeyWord { get; set; }
+        public virtual Bill Bill { get; set; }
     }
 }

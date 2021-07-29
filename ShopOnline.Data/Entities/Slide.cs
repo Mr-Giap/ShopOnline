@@ -12,7 +12,17 @@ namespace ShopOnline.Data.Entities
     [Table("Slides")]
     public class Slide : DomainEntity<int>, IHasDate
     {
-        public int IsShow { get; set; }
+        public Slide()
+        {
+        }
+
+        public Slide(int id,bool isShow)
+        {
+            Id = id;
+            IsShow = isShow;
+        }
+
+        public bool IsShow { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
     }

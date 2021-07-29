@@ -13,7 +13,7 @@ namespace ShopOnline.Data.Entities
     {
         public string Name { get; set; }
         public int ImageId { get; set; }
-        public int IsShow { get; set; }
+        public bool IsShow { get; set; }
         public IEnumerable<Image> Images { get; set; }
     }
 }

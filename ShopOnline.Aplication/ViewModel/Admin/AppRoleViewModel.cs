@@ -10,5 +10,7 @@ namespace ShopOnline.Aplication.ViewModel.Admin
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModifiled { get; set; }
     }
 }

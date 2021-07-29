@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ShopOnline.DataEF
@@ -36,6 +37,8 @@ namespace ShopOnline.DataEF
         public DbSet<Slide> Slides { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagProduct> TagProducts { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillDetail> BillDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
@@ -75,6 +78,24 @@ namespace ShopOnline.DataEF
                 }
             }
             return base.SaveChanges();
+        }
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);
+
+            foreach (EntityEntry item in modified)
+            {
+                var changedOrAddedItem = item.Entity as IHasDate;
+                if (changedOrAddedItem != null)
+                {
+                    if (item.State == EntityState.Added)
+                    {
+                        changedOrAddedItem.DateCreated = DateTime.Now;
+                    }
+                    changedOrAddedItem.DateModifiled = DateTime.Now;
+                }
+            }
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
     }
 }
