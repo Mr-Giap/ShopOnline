@@ -44,6 +44,7 @@ namespace ShopOnline.Aplication.Implement
         {
             var bill = _context.Bills.ProjectTo<BillViewModel>(AutoMapperConfig.RegisterMappings());
             int totalRow = bill.Count();
+
             bill = bill.Skip((pageSize - 1) * pageIndex)
                 .Take(pageSize);
             var result = new PageResult<BillViewModel>()

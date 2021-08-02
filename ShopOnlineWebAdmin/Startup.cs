@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopOnline.Aplication.Implement;
+using ShopOnline.Aplication.Interface.Admin;
 using ShopOnline.Data.Entities;
 using ShopOnline.DataEF;
 using System;
@@ -29,23 +31,54 @@ namespace ShopOnlineWebAdmin
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // add database v�o severvip
+            // add database vào severvip
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             // add identity
             services.AddIdentity<AppUser, AppRole>()
-
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+
+                options.LoginPath = "/dang-nhap";// trang này để ứng dụng chuyển hướng đến nếu truy cập chức năng nào đó cần User phải đăng nhập.
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied"; //trang ứng dụng chuyển hướng đến nếu User truy cập chức năng nào đó mà không được phân quyền
+                options.SlidingExpiration = true;
+            });
 
             // seed data 
             services.AddTransient<DbInitializer>();
-
             //services
-
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddScoped<IProductService, ProductService>();
+
             services.AddRazorPages();
             
             services.AddControllersWithViews();
@@ -79,7 +112,21 @@ namespace ShopOnlineWebAdmin
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
+                
             });
+            //if (Configuration.GetConfig<CommonConfig>().IsMobile == 0)
+            //{ 
+            //     app.UseMvc(routes =>
+            //    {
+            //        routes.MapRoute(
+            //           name: "default",
+            //           template: "{controller}/{action}/{id?}",
+            //           defaults: new { controller = "Home", action = "IndexMb" });
+            //    });
+            //}
+
+
         }
     }
 }

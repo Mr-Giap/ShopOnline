@@ -18,7 +18,7 @@ namespace ShopOnline.Aplication.Implement
     {
         private readonly AppDbContext _context;
         private IMapper _maper = AutoMapperConfig.RegisterMappings().CreateMapper();
-
+       
         public CategoryService(AppDbContext context)
         {
             _context = context;

@@ -18,6 +18,7 @@ namespace ShopOnline.Aplication.Implement
     public class ProductService : IProductService
     {
         private readonly AppDbContext _context;
+        // Nếu mà Add 1 service ở đây thì trong startup phải tiêm AddScoped cho nó. vd : giờ thêm categoryService thì statup cũng phải có.
         private IMapper _mapper = AutoMapperConfig.RegisterMappings().CreateMapper();
         public ProductService(AppDbContext context)
         {
