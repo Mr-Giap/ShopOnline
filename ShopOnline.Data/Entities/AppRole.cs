@@ -14,6 +14,21 @@ namespace ShopOnline.Data.Entities
     public class AppRole :IdentityRole<Guid>,IHasDate
     {
 
+        public AppRole()
+        {
+
+        }
+
+        public AppRole(Guid id, string name, DateTime dateCreated, DateTime dateModifiled)
+        {
+           
+            Id = id;
+            Name = name;
+            DateCreated = dateCreated;
+        }
+
+
+
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
     }

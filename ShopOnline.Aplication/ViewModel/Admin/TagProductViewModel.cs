@@ -11,6 +11,8 @@ namespace ShopOnline.Aplication.ViewModel.Admin
         public int Id { get; set; }
         public int IdProduct { get; set; }
         public int IdTag { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModifiled { get; set; }
 
         public IEnumerable <ProductViewModel> Product { get; set; }
         public IEnumerable <TagViewModel> tag { get; set; }

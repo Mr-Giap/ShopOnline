@@ -129,6 +129,7 @@ namespace ShopOnline.Aplication.Implement
                 updateUser.Avatar = user.Avatar;
                 updateUser.status = Utils.Enum.Status.Active;
                 updateUser.PhoneNumber = user.PhoneNumber;
+                updateUser.DateModifiled = DateTime.Now;
                 var result = await _userManager.UpdateAsync(updateUser);
                 return _mapper.Map<AppUserViewModel>(updateUser);
             }

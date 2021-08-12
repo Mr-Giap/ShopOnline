@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.DataEF", "ShopOn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.Aplication", "ShopOnline.Aplication\ShopOnline.Aplication.csproj", "{48DE5D46-CCE4-410A-BC7C-E1D65EDF5CAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{27130889-17A6-45C7-A90C-E8D9BC436258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{27130889-17A6-45C7-A90C-E8D9BC436258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdmin", "ShopAdmin\ShopAdmin.csproj", "{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{27130889-17A6-45C7-A90C-E8D9BC436258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27130889-17A6-45C7-A90C-E8D9BC436258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27130889-17A6-45C7-A90C-E8D9BC436258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{16EEB81F-1E28-473E-BA3E-C79FBB7CE39A} = {718E43A7-3057-40D4-9919-334DBF670A60}
 		{48DE5D46-CCE4-410A-BC7C-E1D65EDF5CAE} = {115E8C62-F264-4090-8408-2DA06B980D97}
 		{27130889-17A6-45C7-A90C-E8D9BC436258} = {6B26BD27-6481-462F-B4E5-8B915E141062}
+		{5DDF535E-FB0C-4084-9A92-B6C1B1ED1E91} = {84ED5C5E-33D4-4560-A1B2-7A8D1D981D30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A14457B2-E2F7-40C2-B750-DA27B9465D93}

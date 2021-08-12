@@ -15,7 +15,7 @@ namespace ShopOnline.Data.Entities
         {
         }
 
-        public AppUser(Guid id, string email, string username, string phonenumber, string fullName, string address, string avatar, Status status)
+        public AppUser(Guid id, string email, string username, string phonenumber, string fullName, string address, string avatar, Status status,DateTime dateCreated,DateTime dateModifiled)
         {
             Id = id;
             Email = email;
@@ -25,6 +25,9 @@ namespace ShopOnline.Data.Entities
             Avatar = avatar;
             this.status = status;
             PhoneNumber = phonenumber;
+            DateCreated = dateCreated;
+            DateModifiled = dateModifiled;
+
         }
 
         public string FullName { get; set; }

@@ -14,6 +14,14 @@ public   class DomainToViewModelMappingProfile:Profile
         public DomainToViewModelMappingProfile()
         {
             CreateMap<AppUser, AppUserViewModel>();
+            CreateMap<AppRole, AppRoleViewModel>();
+            CreateMap<Product, ProductViewModel>();
+            CreateMap<Category, CategoryViewModel>();
+            CreateMap<Slide, SlideViewModel>();
+            CreateMap<Color, ColorViewModel>();
+            CreateMap<Tag, TagViewModel>();
+            CreateMap<Bill, BillViewModel>();
+
         }
 
     }

@@ -8,7 +8,10 @@ namespace ShopOnline.Aplication.ViewModel.Admin
 {
   public  class ProductViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+        public string NameAscii { get; set; }
+
         public decimal Price { get; set; }
         public decimal PricPromotion { get; set; }
         public string Description { get; set; }

@@ -1,0 +1,97 @@
+﻿<div id="modal-add-edit" class="bootbox modal fade modal-darkorange in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModal">Thêm/Sửa Sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="horizontal-form ">
+                    <form class="form-horizontal" role="form" id="frmMaintainance">
+                        <div class="form-group row">
+                            <input type="hidden" id="hidIdM" value="0" />
+                            <label for="txtNameM" class="col-sm-2 control-label no-padding-right">Tên</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtNameM" class="form-control" id="txtNameM">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtNameAsciiM" class="col-sm-2 control-label no-padding-right">Tên định danh</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtNameAsciiM" class="form-control" id="txtNameAsciiM">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtPriceM" class="col-sm-2 control-label no-padding-right">Giá</label>
+                            <div class="col-sm-10">
+                                <input id="txtPriceM" type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtPricePromotionM" class="col-sm-2 control-label no-padding-right">Giá khuyến mại</label>
+                            <div class="col-sm-10">
+                                <input id="txtPricePromotionM" type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtAmountM" class="col-sm-2 control-label no-padding-right">Số lượng</label>
+                            <div class="col-sm-10">
+                                <input id="txtAmountM" type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtOderM" class="col-sm-2 control-label no-padding-right">Thứ tự hiên thị</label>
+                            <div class="col-sm-10">
+                                <input id="txtOderM" type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtDescriptionM" class="col-sm-2 control-label no-padding-right">Miêu tả</label>
+                            <div class="col-sm-10">
+                                <input id="txtDescriptionM" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtSeoDescriptionM" class="col-sm-2 control-label no-padding-right">Seo miêu tả</label>
+                            <div class="col-sm-10">
+                                <input id="txtSeoDescriptionM" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtSeoTitleM" class="col-sm-2 control-label no-padding-right">Seo Tiêu đề</label>
+                            <div class="col-sm-10">
+                                <input id="txtSeoTitleM" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtSeoKeyWordM" class="col-sm-2 control-label no-padding-right">Seo Keyword</label>
+                            <div class="col-sm-10">
+                                <input id="txtSeoKeyWordM" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" id="ckStatusM">
+                                        <span class="text">Hiển thị</span>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="btnSaveM" class="btn btn-success">Lưu</button>
+                                <button type="button" id="btnCancelM" data-dismiss="modal" class="btn btn-danger">Hủy</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
