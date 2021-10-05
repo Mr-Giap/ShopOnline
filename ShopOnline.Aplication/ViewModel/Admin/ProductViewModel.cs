@@ -11,6 +11,7 @@ namespace ShopOnline.Aplication.ViewModel.Admin
         public int Id { get; set; }
         public string Name { get; set; }
         public string NameAscii { get; set; }
+        public bool IsShow { get; set; }
 
         public decimal Price { get; set; }
         public decimal PricPromotion { get; set; }

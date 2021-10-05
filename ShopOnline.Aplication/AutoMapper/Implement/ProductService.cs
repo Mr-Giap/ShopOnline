@@ -30,10 +30,13 @@ namespace ShopOnline.Aplication.Implement
             var newProduct = new Product()
             {
                 Name = product.Name,
+                NameAscii=product.NameAscii,
                 Price = product.Price,
+                IsShow=product.IsShow,
                 PricPromotion = product.PricPromotion,
                 Description = product.Description,
                 Amount = product.Amount,
+                DisplayOrder=product.DisplayOrder,
                 SortDescription = product.SortDescription,
                 SeoDescription = product.SeoDescription,
                 SeoTitle = product.SeoTitle,
@@ -57,7 +60,7 @@ namespace ShopOnline.Aplication.Implement
             var findProduct = await _context.products.FindAsync(id);
             if(findProduct!=null)
             {
-                 _mapper.Map<ProductViewModel>(findProduct);
+                result.Data= _mapper.Map<ProductViewModel>(findProduct);
                 result.Success = true;
             }
             else
@@ -97,6 +100,7 @@ namespace ShopOnline.Aplication.Implement
             {
                 _context.products.Remove(product);
                 _context.SaveChanges();
+                result.Success = true;
             }
             else
             {
@@ -109,17 +113,21 @@ namespace ShopOnline.Aplication.Implement
         public async Task<GenericResult> Update(ProductViewModel product)
         {
             var result = new GenericResult();
-            var updateProduct = _context.products.FirstOrDefault(x => x.Name == product.Name);
+            var updateProduct = _context.products.FirstOrDefault(x => x.Id == product.Id);
             if (updateProduct!=null)
             {
                 updateProduct.Name = product.Name;
+                updateProduct.NameAscii = product.NameAscii;
                 updateProduct.Price = product.Price;
                 updateProduct.PricPromotion = product.PricPromotion;
+                updateProduct.Amount = product.Amount;
+                updateProduct.DisplayOrder = product.DisplayOrder;
+                updateProduct.Description = product.Description;
                 updateProduct.SeoDescription = product.SeoDescription;
                 updateProduct.SeoKeyWord = product.SeoKeyWord;
                 updateProduct.SeoTitle = product.SeoTitle;
-                updateProduct.Amount = product.Amount;
-               
+                updateProduct.IsShow = product.IsShow;
+
 
                 _context.products.Update(updateProduct);
                 await _context.SaveChangesAsync();

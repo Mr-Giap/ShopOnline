@@ -8,12 +8,12 @@ using Utils.Utilsss;
 
 namespace ShopOnline.Aplication.Interface.Admin
 {
-   public interface IColorService
+    public interface IColorService
     {
-        Task<ColorViewModel> Add(ColorViewModel color);
-       ColorViewModel Update(ColorViewModel color);
+        Task<GenericResult> Add(ColorViewModel color);
+        Task<GenericResult> Update(ColorViewModel color);
         PageResult<ColorViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex);
-        void Remove(int id);
+        GenericResult Remove(int id);
         Task<ColorViewModel> FindById(int id);
     }
 }

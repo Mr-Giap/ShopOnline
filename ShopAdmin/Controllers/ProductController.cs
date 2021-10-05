@@ -17,6 +17,7 @@ namespace ShopAdmin.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Title = "Danh sách sản phẩm";
             return View();
         }
         [HttpGet]
@@ -51,7 +52,8 @@ namespace ShopAdmin.Controllers
             var result = await _productService.Add(product);
             if (result.Success)
             {
-                return Ok(product);
+                result.Message = "add success";
+                return new OkObjectResult(result);
             }
             else
             {
@@ -65,6 +67,19 @@ namespace ShopAdmin.Controllers
             if (result.Success)
             {
                 return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductViewModel product)
+        {
+            var result = await _productService.Update(product);
+            if (result.Success)
+            {
+                return new ObjectResult(result);
             }
             else
             {

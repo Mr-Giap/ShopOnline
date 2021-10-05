@@ -22,7 +22,7 @@ namespace ShopOnline.Aplication.AutoMapper
 
 
             CreateMap<ProductViewModel, Product>()
-          .ConstructUsing(c => new Product(c.Id,c.Name,c.NameAscii, c.Price, c.PricPromotion, c.Description, c.Amount, c.SortDescription, c.SeoDescription, c.SeoTitle, c.SeoKeyWord, c.DateCreated));
+          .ConstructUsing(c => new Product(c.Id,c.Name,c.NameAscii, c.Price, c.PricPromotion, c.Description, c.Amount, c.SortDescription, c.SeoDescription, c.SeoTitle, c.SeoKeyWord, c.DateCreated,c.IsShow));
             
             CreateMap<TagViewModel, Tag>()
             .ConstructUsing(c => new Tag(c.Name,c.DateCreated,c.DateModifiled));

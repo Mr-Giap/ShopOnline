@@ -60,7 +60,19 @@ namespace ShopOnline.DataEF
                     var user = await _userManager.FindByNameAsync("admin");
                     await _userManager.AddToRoleAsync(user, "Admin");
                 }
+                // add categories
+                if (!_context.categories.Any())
+                {
+                    await _context.categories.AddAsync(new Category()
+                    {
+                        Name = "Điện thoại",
+                        IsShow = true,
+                        NameAcsii="",
+                        DateCreated=DateTime.Now,
+                        DateModifiled=DateTime.Now
 
+                    });                
+                }
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)

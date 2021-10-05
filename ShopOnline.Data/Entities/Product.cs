@@ -16,7 +16,9 @@ namespace ShopOnline.Data.Entities
         {
 
         }
-        public Product(int id,string name,string nameAsicii, decimal price, decimal pricPromotion, string description, int amount, string sortDescription, string seoDescription, string seoTitle, string seoKeyWord, DateTime dateCreate)
+        public Product(int id,string name,string nameAsicii, decimal price, decimal pricPromotion,
+            string description, int amount, string sortDescription, string seoDescription,
+            string seoTitle, string seoKeyWord, DateTime dateCreate, bool isShow)
         {
             Id = Id;
             Name = name;
@@ -30,13 +32,14 @@ namespace ShopOnline.Data.Entities
             SeoTitle = seoTitle;
             SeoKeyWord = seoKeyWord;
             DateCreated = dateCreate;
+            IsShow = isShow;
         }
 
         [StringLength(60, MinimumLength = 3)]
         [Required]
         public string Name { get; set; }
         public string NameAscii { get; set; }
-
+        public bool IsShow { get; set; }
         public decimal Price { get; set; }
         public decimal PricPromotion { get; set; }
         public string Description { get; set; }
@@ -48,5 +51,6 @@ namespace ShopOnline.Data.Entities
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }
         public int DisplayOrder { get; set; }
+        public virtual IEnumerable<ProductCategory> ProductCategories { get; set; }
     }
 }
