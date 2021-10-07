@@ -77,7 +77,8 @@ namespace ShopOnlineWebAdmin
             //services
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();  
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddRazorPages();
             

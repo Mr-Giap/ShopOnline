@@ -24,7 +24,7 @@ namespace ShopOnlineWebAdmin.Controllers
         {
             return View();
         }
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
         {
             var products = _productService.GetAllPagging(keyword, pageSize, pageIndex);
@@ -40,7 +40,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = await _productService.Add(product);
             if (result != null)
             {
-                return  Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
@@ -50,7 +50,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = await _productService.Update(product);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
@@ -60,17 +60,17 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = await _productService.GetById(id);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
-        [HttpDelete]
+        [HttpPost]
         public IActionResult Remove(int id)
         {
             var result =  _productService.Remove(id);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }

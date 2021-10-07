@@ -46,6 +46,6 @@ namespace ShopOnline.Data.Entities
         public string SeoDescription { get; set; }
         public string SeoTitle { get; set; }
         public string SeoKeyWord { get; set; }
-
+        public virtual IEnumerable<ProductCategory> ProductCategory { get; set; }
     }
 }

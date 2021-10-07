@@ -13,7 +13,7 @@ namespace ShopOnline.DataEF
     {
         
         private readonly AppDbContext _context;
-        private UserManager<AppUser> _userManager; // dùng implement vì đều đi qua UserManager và RoleManager
+        private UserManager<AppUser> _userManager; //dùng implement(Tiêm phụ phuộc) vì đều đi qua UserManager và RoleManager
         private RoleManager<AppRole> _roleManager;
         public DbInitializer(AppDbContext context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
@@ -22,7 +22,8 @@ namespace ShopOnline.DataEF
             this._roleManager = roleManager;
         }
         /// <summary>
-        /// Gọi là seed data ... Để khởi tạo dataadmin đầu vào.Dùng Roles và Users
+        /// Gọi là seed data ... Để khởi tạo và add các  dataadmin đầu vào khi mình khởi tạo database
+        /// Dùng Roles và Users
         /// </summary>
         /// <returns></returns>
         public async Task Seed()

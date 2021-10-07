@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopOnline
+namespace ShopOnlineAPI
 {
     public class Program
     {
-        // Tất cả mọi thứ đều chạy qua Manin và gọi đến thằng CreateHostBuilder.
-        // Từ thằng CreateHostBuilder gọi đên tất cả host của status.
         public static void Main(string[] args)
         {
+            //CreateHostBuilder(args).Build().Run();
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())

@@ -14,6 +14,8 @@ namespace ShopOnline.Aplication.Automapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<AppUser, AppUserViewModel>();
+            CreateMap<Category, Category>();
+            CreateMap<Product, ProductViewModel>();
         }
     }
 }

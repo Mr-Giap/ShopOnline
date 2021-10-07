@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Aplication.Interface.Admin;
 using ShopOnline.Aplication.ViewModel.Admin;
 using System;
@@ -9,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ShopOnlineWebAdmin.Controllers
 {
-    public class CategoryController : BaseController
+    public class ColorController : Controller
     {
-        private readonly ICategoryService _categoryService;
+        private readonly IColorService _colorService;
 
-        public CategoryController(ICategoryService categoryService)
+        public ColorController(IColorService colorService)
         {
-            _categoryService = categoryService;
+            _colorService = colorService;
         }
 
         public IActionResult Index()
@@ -23,49 +22,49 @@ namespace ShopOnlineWebAdmin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryViewModel category)
+        public async Task<IActionResult> Add(ColorViewModel color)
         {
-            var result = await _categoryService.Add(category);
+            var result = await _colorService.Add(color);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(CategoryViewModel category)
+        public async Task<IActionResult> Update(ColorViewModel color)
         {
-            var record = await _categoryService.Update(category);
-            if (record != null)
+            var result = await _colorService.Update(color);
+            if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
-            return BadRequest(record.Message);
+            return BadRequest(result.Message);
         }
         [HttpGet]
         public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
         {
-            var category = _categoryService.GetAllPagging(keyword, pageSize, pageIndex);
-            if (category != null)
+            var color = _colorService.GetAllPagging(keyword, pageSize, pageIndex);
+            if (color != null)
             {
-                return new OkObjectResult(category);
+                return Ok();
             }
             return BadRequest();
         }
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            var takeId = await _categoryService.GetById(id);
-            if (takeId !=null)
+            var record = await _colorService.GetById(id);
+            if (record != null)
             {
-                return new OkObjectResult(takeId);
+                return new OkObjectResult(record);
             }
             return BadRequest();
         }
         [HttpDelete]
         public IActionResult Remove(int id)
         {
-            var result = _categoryService.Remove(id);
+            var result = _colorService.Remove(id);
             if (result != null)
             {
                 return Ok();

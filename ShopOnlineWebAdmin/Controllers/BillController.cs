@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Aplication.Interface.Admin;
 using ShopOnline.Aplication.ViewModel.Admin;
 using System;
@@ -9,63 +8,65 @@ using System.Threading.Tasks;
 
 namespace ShopOnlineWebAdmin.Controllers
 {
-    public class CategoryController : BaseController
+
+    public class BillController : BaseController
     {
-        private readonly ICategoryService _categoryService;
+        private readonly IBillService _billService;
 
-        public CategoryController(ICategoryService categoryService)
+        public BillController(IBillService billService)
         {
-            _categoryService = categoryService;
+            this._billService = billService;
         }
-
+        
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryViewModel category)
+        public async Task<IActionResult> Add(BillViewModel bill)
         {
-            var result = await _categoryService.Add(category);
+            var result = await _billService.Add(bill);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
+        //[HttpPut]
         [HttpPost]
-        public async Task<IActionResult> Update(CategoryViewModel category)
+        public async Task<IActionResult> Update(BillViewModel bill)
         {
-            var record = await _categoryService.Update(category);
-            if (record != null)
+            var result = await _billService.Update(bill);
+            if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
-            return BadRequest(record.Message);
+            return BadRequest(result.Message);
         }
         [HttpGet]
         public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
         {
-            var category = _categoryService.GetAllPagging(keyword, pageSize, pageIndex);
-            if (category != null)
+            var bill = _billService.GetAllPagging(keyword, pageSize, pageIndex);
+            if (bill != null)
             {
-                return new OkObjectResult(category);
+                return new OkObjectResult(bill);
             }
             return BadRequest();
         }
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            var takeId = await _categoryService.GetById(id);
-            if (takeId !=null)
+            var result = await _billService.GetById(id);
+            if (result != null)
             {
-                return new OkObjectResult(takeId);
+                return new OkObjectResult(result);
             }
             return BadRequest();
         }
         [HttpDelete]
         public IActionResult Remove(int id)
         {
-            var result = _categoryService.Remove(id);
+            var result = _billService.Remove(id);
             if (result != null)
             {
                 return Ok();

@@ -82,19 +82,19 @@
                 },
                 success: function (response) {
                     var data = response;
-                    $('#hidIdM').val(data.Id);
-                    $('#txtNameM').val(data.Name);
-                    $('#txtPriceM').val(data.Price);
-                    $('#txtNameAsciiM').val(data.NameAscii);
-                    $('#txtPricePromotionM').val(data.PricePromotion);
+                    $('#hidIdM').val(data.id);
+                    $('#txtNameM').val(data.name);
+                    $('#txtPriceM').val(data.price);
+                    $('#txtNameAsciiM').val(data.nameAscii);
+                    $('#txtPricePromotionM').val(data.pricePromotion);
                     $('#txtAmountM').val(data.Amount);
                     //$('#txtOderM').val(data.Oder);
-                    $('#txtDescriptionM').val(data.Description);
-                    $('#txtSeoDescriptionM').val(data.SeoDescription);
-                    $('#txtSeoTitleM').val(data.SeoTitle);
-                    $('#txtSeoKeyWordM').val(data.SeoKeyWord);
+                    $('#txtDescriptionM').val(data.description);
+                    $('#txtSeoDescriptionM').val(data.seoDescription);
+                    $('#txtSeoTitleM').val(data.seoTitle);
+                    $('#txtSeoKeyWordM').val(data.seoKeyWord);
 
-                    $('#ckStatusM').prop('checked', data.Status === 1);
+                    $('#ckIsShowM').prop('checked', data.Status === 1);
 
                     $('#modal-add-edit').modal('show');
                     contansconfigs.stopLoading();
@@ -122,7 +122,7 @@
                 var seoTitle = $('#txtSeoTitleM').val();
                 var seoKeyWor = $('#txtSeoKeyWordM').val();
 
-                var status = $('#ckStatusM').prop('checked') === true ? 1 : 0;
+                var isshow = $('#ckIsShowM').prop('checked') === true ? 1 : 0;
                 var url = "";
                 if (parseInt(id) == 0) {
                     url = "/product/add";
@@ -144,7 +144,7 @@
                         SeoDescription: seoDescription,
                         SeoTitle: seoTitle,
                         SeoKeyWord: seoKeyWor,
-                        Status: status,
+                        IsShow: isshow,
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -200,9 +200,9 @@
             });
         });
     }
-    function LoadData() {
+    function LoadData(isPageChanged) {
         $.ajax({
-            type: "GET",
+            type: "Post",
             url: "/product/getallpagging",
             data: {
                 keyword: $('#txt-search-keyword').val(),
@@ -216,14 +216,14 @@
             success: function (response) {
                 var template = $('#table-template').html();
                 var render = "";
-                if (response.RowCount > 0) {
-                    $.each(response.Results, function (i, item) {
+                if (response.rowCount > 0) {
+                    $.each(response.results, function (i, item) {
                         render += Mustache.render(template, {
-                            Id: item.Id,
-                            Name: item.Name,
-                            Price: item.Price,
-                            Amount: item.Amount,
-                            Status: contansconfigs.getStatus(item.Status)
+                            Id: item.id,
+                            Name: item.name,
+                            Price: item.price,
+                            Amount: item.amount,
+                            IsShow: contansconfigs.getStatus(item.isShow)
                         });
                     });
                     //$("#lbl-total-records").text(response.RowCount); // phân trang
@@ -231,7 +231,7 @@
                         $('#tbl-content').html(render);
 
                     }
-                    wrapPaging(response.RowCount, function () {
+                    wrapPaging(response.rowCount, function () {
                         LoadData();
                     }, isPageChanged);
 
@@ -245,6 +245,28 @@
             error: function (status) {
                 console.log(status);
                 contansconfigs.notify("Đã có lỗi xảy ra", "danger");
+            }
+        });
+    }
+    function wrapPaging(recordCount, callBack, changePageSize) {
+        var totalsize = Math.ceil(recordCount / contansconfigs.configs.pageSize);
+        //Unbind pagination if it existed or click change pagesize
+        if ($('#paginationUL a').length === 0 || changePageSize === true) {
+            $('#paginationUL').empty();
+            $('#paginationUL').removeData("twbs-pagination");
+            $('#paginationUL').unbind("page");
+        }
+        //Bind Pagination Event
+        $('#paginationUL').twbsPagination({
+            totalPages: totalsize,
+            visiblePages: 7,
+            first: 'Đầu',
+            prev: 'Trước',
+            next: 'Tiếp',
+            last: 'Cuối',
+            onPageClick: function (event, p) {
+                contansconfigs.configs.pageIndex = p;
+                setTimeout(callBack(), 200);
             }
         });
     }
