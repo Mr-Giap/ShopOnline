@@ -26,27 +26,36 @@ namespace ShopOnline.Aplication.Implement
 
         public async Task<RepontResult> Add(CategoryViewModel category)
         {
+            var nameChange = _context.Categories.Any(x => x.Name != category.Name);
             var resultAdd = new RepontResult();
-            var newCategory = new Category()
+            if (nameChange == true)
             {
-               Name = category.Name,
-               ParentId = category.ParentId,
-               IsShow = category.IsShow,
-               DateCreated = DateTime.Now,
-               DisplayOrder = category.DisplayOrder,
-               SeoDescription = category.SeoDescription,
-               SeoKeyWord = category.SeoKeyWord,
-               SeoTitle =category.SeoTitle
+                var newCategory = new Category()
+                {
+                    Name = category.Name,
+                    ParentId = category.ParentId,
+                    IsShow = category.IsShow,
+                    DateCreated = DateTime.Now,
+                    DisplayOrder = category.DisplayOrder,
+                    SeoDescription = category.SeoDescription,
+                    SeoKeyWord = category.SeoKeyWord,
+                    SeoTitle = category.SeoTitle
 
-            };
-            _context.Categories.Add(newCategory);
-            await _context.SaveChangesAsync();
-            resultAdd.Success = true;
+                };
+                await _context.Categories.AddAsync(newCategory);
+                await _context.SaveChangesAsync();
+                resultAdd.Success = true;
+            }
+            else
+            {
+                resultAdd.Success = false;
+                resultAdd.Data = "Not faund get byid category";
+            }
             return resultAdd;
 
         }
 
-        public PageResult<CategoryViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<CategoryViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             var category = _context.Categories.ProjectTo<CategoryViewModel>(AutoMapperConfig.RegisterMappings());
             if (!string.IsNullOrEmpty(keyword))
@@ -54,26 +63,46 @@ namespace ShopOnline.Aplication.Implement
                 category = category.Where(x => x.Name.Contains(keyword) || x.ParentId.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoTitle.Contains(keyword));
             }
             int totalRow = category.Count();
-            category = category.Skip((pageSize - 1) * pageIndex)
+            category = category.Skip((page - 1) * pageSize)
                 .Take(pageSize);
+            var data = category.Select(x => new CategoryViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ParentId = x.ParentId,
+                IsShow = x.IsShow,
+                DateCreated = x.DateCreated,
+                DateModifiled = x.DateModifiled,
+                DisplayOrder = x.DisplayOrder,
+                SeoDescription = x.SeoDescription,
+                SeoTitle = x.SeoTitle,
+                SeoKeyWord = x.SeoKeyWord
+            }).ToList();
             var result = new PageResult<CategoryViewModel>()
             {
-                Results = category.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                Results = data,
+                CurrentPage = page, // page hien tai
+                RowCount = totalRow,
+                PageSize = pageSize
             };
             return result;
         }
 
-        public async Task<CategoryViewModel> GetById(int id)
+        public async Task<RepontResult> GetById(int id)
         {
-            var takeId = await _context.Categories.FindAsync(id);
-            if (takeId != null)
+            var resultId = new RepontResult();
+            var takenId = await _context.Categories.FindAsync(id);
+            if (takenId != null)
             {
-                return _maper.Map<Category, CategoryViewModel>(takeId);
+                resultId.Success = true;
+                resultId.Data = takenId;
             }
-            return null;
+            else
+            {
+                resultId.Success = false;
+                resultId.Data = "Not faund get byid product";
+            }
+            return resultId;
         }
 
         public RepontResult Remove(int id)

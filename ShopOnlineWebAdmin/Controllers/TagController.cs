@@ -42,9 +42,9 @@ namespace ShopOnlineWebAdmin.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var tag = _tagService.GetAllPagging(keyword, pageSize, pageIndex);
+            var tag = _tagService.GetAllPagging(keyword, page, pageSize);
             if (tag != null)
             {
                 return new OkObjectResult(tag);

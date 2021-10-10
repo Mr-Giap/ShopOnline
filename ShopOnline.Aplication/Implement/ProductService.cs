@@ -27,34 +27,42 @@ namespace ShopOnline.Aplication.Implement
 
         public async Task<RepontResult> Add(ProductViewModel product)
         {
+            var nameChange = _context.Products.Any(x => x.Name != product.Name);
             var resultMess = new RepontResult();
-            var newProduct = new Product()
+            if (nameChange  == true )
             {
-                Name = product.Name,
-                Price = product.Price,
-                PricePromotion = product.PricePromotion,
-                Description = product.Description,
-                Amount = product.Amount,
-                IsShow = product.IsShow,
-                DisplayOrder = product.DisplayOrder,
-                SeoDescription = product.SeoDescription,
-                SeoTitle = product.SeoTitle,
-                SeoKeyWord = product.SeoKeyWord
-            };
-            await  _context.Products.AddAsync(newProduct);
-            await _context.SaveChangesAsync();
-
-
-            resultMess.Success = true;
+                var newProduct = new Product()
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    PricePromotion = product.PricePromotion,
+                    Description = product.Description,
+                    Amount = product.Amount,
+                    IsShow = product.IsShow,
+                    DisplayOrder = product.DisplayOrder,
+                    SeoDescription = product.SeoDescription,
+                    SeoTitle = product.SeoTitle,
+                    SeoKeyWord = product.SeoKeyWord
+                };
+                await _context.Products.AddAsync(newProduct);
+                await _context.SaveChangesAsync();
+                resultMess.Success = true;
+            }
+            else
+            {
+                resultMess.Success = false;
+                resultMess.Data = "Not faund get byid product";
+            }
             return resultMess;
+
             // Nếu là kiểu Task<ProductViewModel> thì phải chuyển từ kiểu Product sang kiểu ProductViewModel thì ta dung mapping
             /*
               if(resultMess != null)
                     return _maper.Map<Product,ProductViewModel>(resultMess);
-             */ 
+             */
         }
 
-        public PageResult<ProductViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<ProductViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             // Lấy ra product
             var product  = _context.Products.ProjectTo<ProductViewModel>(AutoMapperConfig.RegisterMappings());
@@ -63,14 +71,14 @@ namespace ShopOnline.Aplication.Implement
                 product = product.Where(x => x.Name.Contains(keyword) || x.NameAscii.Contains(keyword) || x.Description.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoKeyWord.Contains(keyword) || x.SeoTitle.Contains(keyword));
             }
             int totalRow = product.Count();
-            product = product.Skip((pageSize - 1) * pageIndex)
+            product = product.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var results = new PageResult<ProductViewModel>()
             {
                 Results = product.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                CurrentPage = page, // số page hien tai
+                RowCount = totalRow,
+                PageSize = pageSize
             };
             return results;
         }

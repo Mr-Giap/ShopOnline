@@ -14,7 +14,7 @@ namespace ShopOnline.Aplication.Automapper
 
         public ViewModelToDomainMappingProfile()
         {
-            // Khởi tạo ra 1 phương thức map
+            // Khởi tạo ra 1 phương thức mapper để ánh xạ từ object này sang object khác.
             CreateMap<AppUserViewModel, AppUser>()
             .ConstructUsing(c => new AppUser(c.Id, c.Email, c.UserName, c.PhoneNumber, c.FullName,
             c.Address, c.Avatar, c.Status,c.DateCreated));

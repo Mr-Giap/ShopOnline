@@ -72,6 +72,7 @@
         $('body').on('click', '.btn-edit', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
+            console.log(that);
             $.ajax({
                 type: "GET",
                 url: "/product/getbyid",
@@ -80,21 +81,21 @@
                 beforeSend: function () {
                     contansconfigs.startLoading();
                 },
-                success: function (response) {
+                success: function (response,data) {
                     var data = response;
-                    $('#hidIdM').val(data.id);
-                    $('#txtNameM').val(data.name);
-                    $('#txtPriceM').val(data.price);
-                    $('#txtNameAsciiM').val(data.nameAscii);
-                    $('#txtPricePromotionM').val(data.pricePromotion);
-                    $('#txtAmountM').val(data.Amount);
-                    //$('#txtOderM').val(data.Oder);
-                    $('#txtDescriptionM').val(data.description);
-                    $('#txtSeoDescriptionM').val(data.seoDescription);
-                    $('#txtSeoTitleM').val(data.seoTitle);
-                    $('#txtSeoKeyWordM').val(data.seoKeyWord);
-
-                    $('#ckIsShowM').prop('checked', data.Status === 1);
+                    console.log(response, data);
+                    debugger;
+                    $('#hidIdM').val(data.data.id);
+                    $('#txtNameM').val(data.data.name);
+                    $('#txtPriceM').val(data.data.price);
+                    $('#txtNameAsciiM').val(data.data.nameAscii);
+                    $('#txtPricePromotionM').val(data.data.pricePromotion);
+                    $('#txtAmountM').val(data.data.amount);
+                    $('#txtDescriptionM').val(data.data.description);
+                    $('#txtSeoDescriptionM').val(data.data.seoDescription);
+                    $('#txtSeoTitleM').val(data.data.seoTitle);
+                    $('#txtSeoKeyWordM').val(data.data.seoKeyWord);
+                    $('#ckIsShowM').prop('checked', data.data.status === 1);
 
                     $('#modal-add-edit').modal('show');
                     contansconfigs.stopLoading();
@@ -124,6 +125,7 @@
 
                 var isshow = $('#ckIsShowM').prop('checked') === true ? 1 : 0;
                 var url = "";
+                debugger;
                 if (parseInt(id) == 0) {
                     url = "/product/add";
                 }
@@ -202,11 +204,11 @@
     }
     function LoadData(isPageChanged) {
         $.ajax({
-            type: "Post",
+            type: "GET",
             url: "/product/getallpagging",
             data: {
                 keyword: $('#txt-search-keyword').val(),
-                pageIndex: contansconfigs.configs.pageIndex,
+                page: contansconfigs.configs.pageIndex,
                 pageSize: contansconfigs.configs.pageSize
             },
             dataType: "json",
@@ -226,10 +228,10 @@
                             IsShow: contansconfigs.getStatus(item.isShow)
                         });
                     });
-                    //$("#lbl-total-records").text(response.RowCount); // phân trang
+                    $("#lbl-total-records").text(response.rowCount); // phân trang
+
                     if (render != undefined) {
                         $('#tbl-content').html(render);
-
                     }
                     wrapPaging(response.rowCount, function () {
                         LoadData();

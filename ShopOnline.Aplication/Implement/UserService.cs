@@ -19,7 +19,7 @@ namespace ShopOnline.Aplication.Implement
     public class UserService : IUserService
     {
         private readonly AppDbContext _context;
-        // thêm 2 thằng của  Identity
+        // thêm 2 thằng để sử dụng  Identity
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         // truyền auto mapper vào
@@ -32,7 +32,7 @@ namespace ShopOnline.Aplication.Implement
 
         }
         /// <summary>
-        ///  Khởi tạo user 
+        ///  Khởi tạo user để ánh xạ dữ liệu ->  lấy các trường mình muốn
         /// </summary>
         /// <param name="user">Đối tượng user</param>
         /// <returns>Dữ liệu của user</returns>
@@ -61,7 +61,7 @@ namespace ShopOnline.Aplication.Implement
                 }
                 if (appUser != null)
                     await _userManager.AddToRolesAsync(appUser, lstRole);
-                // mapper chuyển từ thằng AppUser sang thằng AppUserViewModel chuyền biến xong nó sẽ chuyển về 1 kiểu biến AppUserViewModel
+                // mapper chuyển từ thằng AppUser sang thằng AppUserViewModel 
                 // vì mình đang gọi tới AppUserViewModel
                 return _mapper.Map<AppUser, AppUserViewModel>(appUser);
 
@@ -69,7 +69,7 @@ namespace ShopOnline.Aplication.Implement
             return null;
         }
 
-        public PageResult<AppUserViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<AppUserViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             // get all user
             var users = _context.AppUsers.ProjectTo<AppUserViewModel>(AutoMapperConfig.RegisterMappings());
@@ -83,14 +83,14 @@ namespace ShopOnline.Aplication.Implement
             // Lấy phân trang :  Skin () là bỏ qua bao nhiêu bản ghi (pz =10 thì lấy đc ps =1 -> qua 40 bản ghi)
             // Take là lấy số bản ghi 
             // trong sql :"SELECT * FROM customer LIMIT 10 OFFSET 20
-            users = users.Skip((pageSize - 1) * pageIndex)
+            users = users.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var results = new PageResult<AppUserViewModel>()
             {
                 Results = users.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                CurrentPage = page, // page hien tai
+                RowCount = totalRow,
+                PageSize = pageSize
             };
             return results;
         }

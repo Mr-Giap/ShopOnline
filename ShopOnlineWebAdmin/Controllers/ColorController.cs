@@ -16,7 +16,12 @@ namespace ShopOnlineWebAdmin.Controllers
         {
             _colorService = colorService;
         }
-
+        // Tìm hiểu RESTful API :
+        /*  GET (SELECT): Trả về một Resource hoặc một danh sách Resource.
+         *  PUT (UPDATE): Cập nhật thông tin cho Resource.
+         *  DELETE (DELETE): Xoá một Resource.
+         *  POST (CREATE): Tạo mới một Resource.
+         */
         public IActionResult Index()
         {
             return View();

@@ -12,9 +12,8 @@ namespace ShopOnlineWebAdmin.Controllers
 {
     public class ProductController : BaseController
     {
+
         private readonly IProductService _productService;
-       
-        
         public ProductController(IProductService productService)
         {
             _productService = productService;
@@ -24,10 +23,16 @@ namespace ShopOnlineWebAdmin.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        // Tìm hiểu RESTful API :
+        /*  GET (SELECT): Trả về một Resource hoặc một danh sách Resource.
+         *  PUT (UPDATE): Cập nhật thông tin cho Resource.
+         *  DELETE (DELETE): Xoá một Resource.
+         *  POST (CREATE): Tạo mới một Resource.
+         */
+        [HttpGet]
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var products = _productService.GetAllPagging(keyword, pageSize, pageIndex);
+            var products = _productService.GetAllPagging(keyword, page, pageSize);
             if (products != null)
             {
                 return new OkObjectResult(products);

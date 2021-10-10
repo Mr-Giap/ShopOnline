@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using ShopOnline.Aplication.Automapper;
 using ShopOnline.Aplication.Interface.Admin;
 using ShopOnline.Aplication.ViewModel.Admin;
+using ShopOnline.Cache;
 using ShopOnline.Data.Entities;
 using ShopOnline.DataEF;
 using System;
@@ -18,7 +19,7 @@ namespace ShopOnline.Aplication.Implement
     {
         private readonly AppDbContext _context;
         private IMapper _maper = AutoMapperConfig.RegisterMappings().CreateMapper();
-
+        private RedisBase _redisCache;
         public BillService(AppDbContext context)
         {
             _context = context;
@@ -40,17 +41,17 @@ namespace ShopOnline.Aplication.Implement
             return resultAdd;
         }
 
-        public PageResult<BillViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<BillViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             var bill = _context.Bills.ProjectTo<BillViewModel>(AutoMapperConfig.RegisterMappings());
             int totalRow = bill.Count();
 
-            bill = bill.Skip((pageSize - 1) * pageIndex)
+            bill = bill.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var result = new PageResult<BillViewModel>()
             {
                 Results = bill.ToList(),
-                CurrentPage = pageIndex, // page hien tai
+                CurrentPage = page, // page hien tai
                 PageSize = pageSize,
                 RowCount = totalRow
             };

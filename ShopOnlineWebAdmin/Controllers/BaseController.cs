@@ -12,8 +12,7 @@ namespace ShopOnlineWebAdmin.Controllers
     {
 
         //[AllowAnonymous] // Cho phép User truy cập Action này mà không cần đăng nhập
-        //public ActionResult Action1()
-        //{
-        //}
+        // Mỗi thằng admin là phải đăng nhập. Mỗi 1 lần đăng nhập thì cần Authorize  để đăng nhập.
+        //  BaseController giúp cho kế thừa lại Authorize 
     }
 }

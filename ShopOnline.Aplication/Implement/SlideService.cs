@@ -41,7 +41,7 @@ namespace ShopOnline.Aplication.Implement
             var slide = _context.Slides.ProjectTo<SlideViewModel>(AutoMapperConfig.RegisterMappings());
             int totalRow = slide.Count();
             slide = slide.Skip((pageSize - 1) * pageIndex)
-                .Take(pageSize);
+                .Take(pageIndex);
             var result = new PageResult<SlideViewModel>()
             {
                 Results = slide.ToList(),

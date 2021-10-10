@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShopOnline.Cache\ShopOnline.Cache.csproj" />
     <ProjectReference Include="..\ShopOnline.DataEF\ShopOnline.DataEF.csproj" />
   </ItemGroup>
 

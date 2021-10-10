@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopOnlineWebAdmin.Componnents
+namespace ShopOnlineWebAdmin.Components
 {
-    [ViewComponent(Name = "SideBarMenu")]
-    public class SideBarMenuComponent : ViewComponent
+    [ViewComponent(Name = "NavigtionTop")]
+    public class NavigtionTopComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

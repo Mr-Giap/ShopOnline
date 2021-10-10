@@ -44,9 +44,9 @@ namespace ShopOnlineWebAdmin.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var bill = _billService.GetAllPagging(keyword, pageSize, pageIndex);
+            var bill = _billService.GetAllPagging(keyword, page, pageSize);
             if (bill != null)
             {
                 return new OkObjectResult(bill);

@@ -21,6 +21,12 @@ namespace ShopOnlineWebAdmin.Controllers
         {
             return View();
         }
+        // Tìm hiểu RESTful API :
+        /*  GET (SELECT): Trả về một Resource hoặc một danh sách Resource.
+         *  PUT (UPDATE): Cập nhật thông tin cho Resource.
+         *  DELETE (DELETE): Xoá một Resource.
+         *  POST (CREATE): Tạo mới một Resource.
+         */
         [HttpPost]
         public async Task<IActionResult> Add(SlideViewModel slide)
         {
@@ -42,9 +48,9 @@ namespace ShopOnlineWebAdmin.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var slide = _slideService.GetAllPagging(keyword, pageSize, pageIndex);
+            var slide = _slideService.GetAllPagging(keyword, page, pageSize);
             if (slide != null)
             {
                 return new OkObjectResult(slide);

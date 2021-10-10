@@ -12,7 +12,7 @@ namespace ShopOnline.Aplication.Interface.Admin
     {
         Task<AppUserViewModel> Add(AppUserViewModel user);
         Task<AppUserViewModel> Update(AppUserViewModel user);
-        PageResult<AppUserViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex); 
+        PageResult<AppUserViewModel> GetAllPagging(string keyword, int page, int pageSize); 
         Task<AppUserViewModel> GetById(Guid id);
         void Remove(Guid id);
     }

@@ -13,9 +13,16 @@ namespace ShopOnline.Aplication.Automapper
     {
         public DomainToViewModelMappingProfile()
         {
+            // config chuyển đổi từ AppUser => AppUserViewModel
             CreateMap<AppUser, AppUserViewModel>();
-            CreateMap<Category, Category>();
+            CreateMap<AppRole, AppRoleViewModel>();
+            CreateMap<Bill, BillViewModel>();
+            CreateMap<Slide, SlideViewModel>();
+            CreateMap<Category, CategoryViewModel>();
             CreateMap<Product, ProductViewModel>();
+            CreateMap<Color, ColorViewModel>();
+            CreateMap<Tag, TagViewModel>();
+
         }
     }
 }

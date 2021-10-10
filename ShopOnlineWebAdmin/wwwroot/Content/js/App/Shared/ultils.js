@@ -1,7 +1,7 @@
 ﻿var contansconfigs = {
     configs: {
-        pageSize: 5,
-        pageIndex: 1
+        pageIndex: 1,
+        pageSize: 5
     },
     notify: function (message, type) {
         // Là 1 hàm viết sẵn để hiện thông báo cho controler

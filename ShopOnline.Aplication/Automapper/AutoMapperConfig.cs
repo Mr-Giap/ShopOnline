@@ -11,6 +11,7 @@ namespace ShopOnline.Aplication.Automapper
     {
         public static MapperConfiguration RegisterMappings()
         {
+
             return new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new DomainToViewModelMappingProfile());

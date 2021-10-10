@@ -37,7 +37,7 @@ namespace ShopOnline.Aplication.Implement
             return result;
         }
 
-        public PageResult<TagViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<TagViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             var tag = _context.Tags.ProjectTo<TagViewModel>(AutoMapperConfig.RegisterMappings());
             if (!string.IsNullOrEmpty(keyword))
@@ -45,14 +45,14 @@ namespace ShopOnline.Aplication.Implement
                 tag = tag.Where(x => x.Name.Contains(keyword));
             }
             int totalRow = tag.Count();
-            tag = tag.Skip((pageSize - 1) * pageIndex)
+            tag = tag.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var result = new PageResult<TagViewModel>()
             {
                 Results = tag.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                CurrentPage = page, // page hien tai
+                RowCount = totalRow ,
+                PageSize = pageSize
             };
             return result;
         }

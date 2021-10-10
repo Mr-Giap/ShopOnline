@@ -46,7 +46,7 @@ namespace ShopOnline.Aplication.Implement
             return null;
         }
 
-        public PageResult<AppRoleViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<AppRoleViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             // get all user
             var role = _context.AppRoles.ProjectTo<AppRoleViewModel>(AutoMapperConfig.RegisterMappings());
@@ -57,14 +57,14 @@ namespace ShopOnline.Aplication.Implement
             }
             // tổng số bản ghi
             int totalRow = role.Count();
-            role = role.Skip((pageSize - 1) * pageIndex)
+            role = role.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var results = new PageResult<AppRoleViewModel>
             {
                 Results = role.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                CurrentPage = page, // page hien tai
+                RowCount = totalRow ,
+                PageSize = pageSize
             };
             return results;
         }

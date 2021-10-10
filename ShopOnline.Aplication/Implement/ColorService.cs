@@ -37,7 +37,7 @@ namespace ShopOnline.Aplication.Implement
             return resutlAdd;
         }
 
-        public PageResult<ColorViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public PageResult<ColorViewModel> GetAllPagging(string keyword, int page, int pageSize)
         {
             var color = _context.Colors.ProjectTo<ColorViewModel>(AutoMapperConfig.RegisterMappings());
             if (!string.IsNullOrEmpty(keyword))
@@ -45,14 +45,14 @@ namespace ShopOnline.Aplication.Implement
                 color = color.Where(x => x.Name.Contains(keyword));
             }
             int totalRow = color.Count();
-            color = color.Skip((pageSize - 1) * pageIndex)
+            color = color.Skip((page - 1) * pageSize)
                 .Take(pageSize);
             var result = new PageResult<ColorViewModel>()
             {
                 Results = color.ToList(),
-                CurrentPage = pageIndex, // page hien tai
-                PageSize = pageSize,
-                RowCount = totalRow
+                CurrentPage = page, // page hien tai
+                RowCount = totalRow ,
+                PageSize = pageSize
             };
             return result;
         }

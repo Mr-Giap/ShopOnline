@@ -12,8 +12,8 @@ namespace ShopOnline.Aplication.Interface.Admin
     {
         Task<RepontResult> Add(CategoryViewModel category);
         Task<RepontResult> Update(CategoryViewModel category);
-        PageResult<CategoryViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex);
-        Task<CategoryViewModel> GetById(int id);
+        PageResult<CategoryViewModel> GetAllPagging(string keyword, int page, int pageSize);
+        Task<RepontResult> GetById(int id);
         RepontResult Remove(int id);
 
     }

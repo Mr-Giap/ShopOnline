@@ -28,7 +28,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = await _categoryService.Add(category);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult("You are Add sucess");
             }
             return BadRequest(result.Message);
         }
@@ -43,9 +43,9 @@ namespace ShopOnlineWebAdmin.Controllers
             return BadRequest(record.Message);
         }
         [HttpGet]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var category = _categoryService.GetAllPagging(keyword, pageSize, pageIndex);
+            var category = _categoryService.GetAllPagging(keyword, page, pageSize);
             if (category != null)
             {
                 return new OkObjectResult(category);

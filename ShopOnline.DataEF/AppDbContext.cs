@@ -57,7 +57,7 @@ namespace ShopOnline.DataEF
             //base.OnModelCreating(builder);
         }
         /// <summary>
-        /// Dùng save chages để ghi đè phương thức datatime ..
+        /// Dùng saveChages để ghi đè phương thức datatime ..
         /// Modified : là dùng để update lại trường đó không muốn xóa cứng. mà chỉ xóa mềm.
         /// </summary>
         /// <returns></returns>

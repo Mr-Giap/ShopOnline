@@ -52,14 +52,37 @@
                                         <th>Giá</th>
                                         <th>Số Lượng</th>
                                         <th>Trạng thái</th>
-                                        <th></th>
+                                        <th></th> 
                                     </tr>
                                 </thead>
                                 <tbody id="tbl-content">
-                                    <!--Gọi từ js  -->
-
+                                    <!--Gọi từ js App/Controller/Product -->
                                 </tbody>
+
                             </table>
+                            <!-- Phân trang -->
+                            <div class="card-footer clearfix">
+                                <div class="pagination pagination-sm m-0 float-left">
+                                    <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                                        <select id="ddlShowPage">
+                                            <option value="5" selected="selected">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span class="item-per-page">
+                                            bản ghi/trang.
+                                        </span>
+                                        Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
+                                    </div>
+                                </div>
+                                <div class="pagination pagination-sm m-0 float-right">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                        <ul id="paginationUL"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end phân trang -->
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -81,15 +104,15 @@
             <td>{{Amount}}</td>
             <td>{{{IsShow}}}</td>
             <td>
-                <a href="javascript:void(0);" data-id="{{Id}}" class="btn-edit"><i class="fa fa-pencil-square-o"></i></a>
-                <a href="javascript:void(0);" data-id="{{Id}}" class="btn-delete"><i class="fa fa-trash-o"></i></a>
+                <a href="javascript:void(0);" data-id="{{Id}}" title="Sửa" class="btn-edit"><i class="fas fa-edit"></i></a>
+                <a href="javascript:void(0);" data-id="{{Id}}" title="Xóa" class="btn-delete"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 </script>
 <!-- /.content-wrapper -->
 @await Html.PartialAsync("_AddEditModel")
 @section Scripts {
-    <script src="~/Content/js/App/Controler/Product/index.js"></script>
+    <script src="~/Content/js/App/Controllers/Product/index.js"></script>
     <script>
         var product = new productController();
         product.Initialize();

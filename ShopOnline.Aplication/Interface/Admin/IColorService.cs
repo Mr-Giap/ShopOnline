@@ -12,7 +12,7 @@ namespace ShopOnline.Aplication.Interface.Admin
     {
         Task<RepontResult> Add(ColorViewModel color);
         Task<RepontResult> Update(ColorViewModel color);
-        PageResult<ColorViewModel> GetAllPagging(string keyword, int pageSize, int pageIndex);
+        PageResult<ColorViewModel> GetAllPagging(string keyword, int page, int pageSize);
         Task<ColorViewModel> GetById(int id);
         RepontResult Remove(int id);
     }
