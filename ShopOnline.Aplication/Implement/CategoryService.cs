@@ -26,25 +26,34 @@ namespace ShopOnline.Aplication.Implement
 
         public async Task<RepontResult> Add(CategoryViewModel category)
         {
-            var nameChange = _context.Categories.Any(x => x.Name != category.Name);
+            var nameChange = _context.Categories.Any(x => x.Name == category.Name);
             var resultAdd = new RepontResult();
-            if (nameChange == true)
+            if (nameChange != true)
             {
-                var newCategory = new Category()
+                try
                 {
-                    Name = category.Name,
-                    ParentId = category.ParentId,
-                    IsShow = category.IsShow,
-                    DateCreated = DateTime.Now,
-                    DisplayOrder = category.DisplayOrder,
-                    SeoDescription = category.SeoDescription,
-                    SeoKeyWord = category.SeoKeyWord,
-                    SeoTitle = category.SeoTitle
+                    var newCategory = new Category()
+                    {
+                        Name = category.Name,
+                        NameAscii = category.NameAscii,
+                        ParentId = category.ParentId,
+                        IsShow = category.IsShow,
+                        DateCreated = DateTime.Now,
+                        DisplayOrder = category.DisplayOrder,
+                        SeoDescription = category.SeoDescription,
+                        SeoKeyWord = category.SeoKeyWord,
+                        SeoTitle = category.SeoTitle
+                    };
+                    await _context.Categories.AddAsync(newCategory);
+                    await _context.SaveChangesAsync();
+                    resultAdd.Success = true;
+                }
+                catch (Exception ex)
+                {
 
-                };
-                await _context.Categories.AddAsync(newCategory);
-                await _context.SaveChangesAsync();
-                resultAdd.Success = true;
+                    throw ;
+                }
+               
             }
             else
             {
@@ -60,7 +69,7 @@ namespace ShopOnline.Aplication.Implement
             var category = _context.Categories.ProjectTo<CategoryViewModel>(AutoMapperConfig.RegisterMappings());
             if (!string.IsNullOrEmpty(keyword))
             {
-                category = category.Where(x => x.Name.Contains(keyword) || x.ParentId.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoTitle.Contains(keyword));
+                category = category.Where(x => x.Name.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoDescription.Contains(keyword) || x.SeoTitle.Contains(keyword));
             }
             int totalRow = category.Count();
             category = category.Skip((page - 1) * pageSize)

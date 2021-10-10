@@ -1,6 +1,12 @@
 ﻿var productController = function () {
+    var loading = false;
     this.Initialize = function () {
-        InitClick();
+        if (loading == false) {
+            loading = true;
+            InitClick();
+        } else {
+            return false;
+        }
         LoadData();
     }
 
@@ -13,14 +19,13 @@
             rules: {
                 txtNameM: { required: true },
                 txtNameAsciiM: { required: true },
-                txtPriceM: { require: true },
-                txtPricePromotionM: { require: true },
-                txtAmountM: { require: true },
-                //txtOderM: { require: true },
-                txtDescriptionM: { require: true },
-                txtSeoDescriptionM: { require: true },
-                txtSeoTitleM: { require: true },
-                txtSeoKeyWordM: { require: true },
+                txtPriceM: { required: true },
+                txtPricePromotionM: { required: true },
+                txtAmountM: { required: true },
+                txtDescriptionM: { required: true },
+                txtSeoDescriptionM: { required: true },
+                txtSeoTitleM: { required: true },
+                txtSeoKeyWordM: { required: true },
 
             },
             messages: {
@@ -38,23 +43,23 @@
                     number: "Vui lòng nhập đúng định dạng"
                 },
                 txtPricePromotionM: {
-                    required: "Giá nhập ",
+                    required: "Tên không được bổ trống ",
                     number: "Vui lòng nhập đúng định dạng"
                 },
                 txtAmountM: {
                     required: "Số lượng không được bổ trống",
                     number: "Vui lòng nhập đúng định dạng"
                 },
-                //txtOderM: {
-                //    required: "Hiển thị không được bổ trống",
-                //    noSpace: "Nhập sai định dạng"
-                //},
                 txtDescriptionM: {
                     required: "Sự nhiêu tả không được bổ trống",
                     noSpace: "Nhập sai định dạng"
                 },
+                txtSeoDescriptionM: {
+                    required: "Nội dung không được bổ trống",
+                    noSpace: "Nhập sai định dạng"
+                },
                 txtSeoTitleM: {
-                    required: "ội dung không được bổ trống",
+                    required: "Nội dung không được bổ trống",
                     noSpace: "Nhập sai định dạng"
                 },
                 txtSeoKeyWordM: {
@@ -63,6 +68,7 @@
                 },
             }
         });
+
 
         $("#btn-create").on('click', function () {
             //resetFormMaintainance();
@@ -99,10 +105,10 @@
 
                     $('#modal-add-edit').modal('show');
                     contansconfigs.stopLoading();
-
                 },
                 error: function () {
-                    contansconfigs.notify('Có lỗi xảy ra', 'error');
+                    //contansconfigs.notify('Có lỗi xảy ra', 'error');
+                    toastr.error('Đã có lỗi xảy ra');
                     contansconfigs.stopLoading();
                 }
             });
@@ -159,7 +165,8 @@
                             //resetFormMaintainance();
                         }
                         else {
-                            contansconfigs.notify('Update page successful', 'success');
+                           // contansconfigs.notify('Update page successful', 'success');
+                            toastr.success('Update page successful');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
@@ -167,8 +174,8 @@
                         LoadData(true);
                     },
                     error: function () {
-                        
-                        contansconfigs.notify('Have an error in progress', 'error');
+                        toastr.error('Have an error in progress');
+                        //contansconfigs.notify('Have an error in progress', 'error');
                         contansconfigs.stopLoading();
                     }
                 });
@@ -182,7 +189,7 @@
             var that = $(this).data('id');
             contansconfigs.confirm('Are you sure to delete?', function () {
                 $.ajax({
-                    type: "POST",
+                    type: "DELETE",
                     url: "/product/remove",
                     data: { id: that },
                     dataType: "json",
@@ -190,12 +197,14 @@
                         contansconfigs.startLoading();
                     },
                     success: function () {
-                        contansconfigs.notify('Delete page successful', 'success');
+                        //contansconfigs.notify('Delete page successful', 'success');
+                        toastr.success('Delete page successful');
                         contansconfigs.stopLoading();
                         LoadData();
                     },
                     error: function () {
-                        contansconfigs.notify('Have an error in progress', 'error');
+                       // contansconfigs.notify('Have an error in progress', 'error');
+                        toastr.error('Have an error in progress');
                         contansconfigs.stopLoading();
                     }
                 });
@@ -228,16 +237,14 @@
                             IsShow: contansconfigs.getStatus(item.isShow)
                         });
                     });
-                    $("#lbl-total-records").text(response.rowCount); // phân trang
-
+                    //$("#lbl-total-records").text(response.rowCount); // phân trang
+                    $("#lblTotalRecords").text(response.rowCount);
                     if (render != undefined) {
                         $('#tbl-content').html(render);
                     }
                     wrapPaging(response.rowCount, function () {
                         LoadData();
                     }, isPageChanged);
-
-
                 }
                 else {
                     $('#tbl-content').html('');
@@ -272,4 +279,10 @@
             }
         });
     }
+    //
+    $("#ddlShowPage").on('change', function () {
+        contansconfigs.configs.pageSize = $(this).val();
+        contansconfigs.configs.pageIndex = 1;
+        LoadData(true);
+    });
 }

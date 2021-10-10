@@ -10,7 +10,8 @@ namespace ShopOnline.Aplication.ViewModel.Admin
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ParentId { get; set; }
+        public string NameAscii { get; set; }
+        public int ParentId { get; set; }
         public bool IsShow { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModifiled { get; set; }

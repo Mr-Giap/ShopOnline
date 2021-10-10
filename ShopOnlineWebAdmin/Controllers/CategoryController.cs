@@ -26,9 +26,10 @@ namespace ShopOnlineWebAdmin.Controllers
         public async Task<IActionResult> Add(CategoryViewModel category)
         {
             var result = await _categoryService.Add(category);
-            if (result != null)
+            if (result.Success)
             {
-                return new OkObjectResult("You are Add sucess");
+                //result.Message = "You are Add sucess";
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }
@@ -38,7 +39,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var record = await _categoryService.Update(category);
             if (record != null)
             {
-                return Ok();
+                return new OkObjectResult(record);
             }
             return BadRequest(record.Message);
         }
@@ -68,7 +69,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = _categoryService.Remove(id);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }

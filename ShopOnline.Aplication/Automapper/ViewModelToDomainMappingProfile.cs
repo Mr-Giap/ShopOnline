@@ -27,7 +27,7 @@ namespace ShopOnline.Aplication.Automapper
             p.Description, p.Amount,p.IsShow,p.DisplayOrder,p.SeoDescription,p.SeoTitle,p.SeoKeyWord));
             //category
             CreateMap<CategoryViewModel, Category>()
-            .ConstructUsing(c => new Category(c.Id,c.Name,c.ParentId,c.IsShow,c.DisplayOrder,
+            .ConstructUsing(c => new Category(c.Id,c.Name,c.NameAscii, c.ParentId,c.IsShow,c.DisplayOrder,
             c.SeoDescription,c.SeoTitle,c.SeoKeyWord));
             //Slide
             CreateMap<SlideViewModel, Slide>()

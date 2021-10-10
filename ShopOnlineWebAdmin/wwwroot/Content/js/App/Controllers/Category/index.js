@@ -1,9 +1,15 @@
 ﻿var categoryController = function () {
+    var loading = false;
     this.Initialize = function () {
-        InitClick();
+        if (loading == false) {
+            loading = true;
+            InitClick();
+        } else {
+            return false;
+        }
         LoadData();
     }
-
+   
     function InitClick() {
         //Init validation
         $('#frmMaintainance').validate({
@@ -12,13 +18,19 @@
             lang: 'en',
             rules: {
                 txtNameM: { required: true },
+                txtNameAsciiM: { required: true },
                 txtParentIdM: { required: true },
-                txtSeoDescriptionM: { require: true },
-                txtSeoTitleM: { require: true },
-                txtSeoKeyWordM: { require: true },
+                txtDisplayOrderM: { required: true },
+                txtSeoDescriptionM: { required: true },
+                txtSeoTitleM: { required: true },
+                txtSeoKeyWordM: { required: true },
             },
             messages: {
                 txtNameM: {
+                    required: "Tên không được bổ trống",
+                    noSpace: "Nhập tên sai định dạng"
+                },
+                txtNameAsciiM: {
                     required: "Tên không được bổ trống",
                     noSpace: "Nhập tên sai định dạng"
                 },
@@ -27,17 +39,21 @@
                     noSpace: "Nhập tên sai định dạng"
                     //number: "Vui lòng nhập đúng định dạng"
                 },
-                txtDescriptionM: {
+                txtDisplayOrderM: {
+                    required: "Tên không được bổ trống",
+                    number: "Vui lòng nhập đúng định dạng"
+                },
+                txtSeoDescriptionM: {
                     required: "Sự nhiêu tả không được bổ trống",
-                    noSpace: "Nhập sai định dạng"
+                    noSpace: "Nhập  sai định dạng"
                 },
                 txtSeoTitleM: {
-                    required: "ội dung không được bổ trống",
-                    noSpace: "Nhập sai định dạng"
+                    required: "Nội dung không được bổ trống",
+                    noSpace: "Nhập  sai định dạng"
                 },
                 txtSeoKeyWordM: {
                     required: "Nội dung không được bổ trống",
-                    noSpace: "Nhập sai định dạng"
+                    noSpace: "Nhập  sai định dạng"
                 },
             }
         });
@@ -65,7 +81,9 @@
                     console.log(response, data);
                     $('#hidIdM').val(data.data.id);
                     $('#txtNameM').val(data.data.name);
+                    $('#txtNameAsciiM').val(data.data.nameAscii);
                     $('#txtParentIdM').val(data.data.parentId);
+                    $('#txtDisplayOrderM').val(data.data.displayOrder);
                     $('#txtSeoDescriptionM').val(data.data.seoDescription);
                     $('#txtSeoTitleM').val(data.data.seoTitle);
                     $('#txtSeoKeyWordM').val(data.data.seoKeyWord);
@@ -74,7 +92,8 @@
                     contansconfigs.stopLoading();
                 },
                 error: function () {
-                    contansconfigs.notify('Có lỗi xảy ra', 'error');
+                    toastr.error('Đã có lỗi xảy ra');
+                   //contansconfigs.notify('Có lỗi xảy ra', 'error');
                     contansconfigs.stopLoading();
                 }
             });
@@ -85,14 +104,14 @@
                 e.preventDefault();
                 var id = $('#hidIdM').val();
                 var name = $('#txtNameM').val();
+                var nameAscii = $('#txtNameAsciiM').val();
                 var parentId = $('#txtParentIdM').val();
+                var displayOrder = $('#txtDisplayOrderM').val();
                 var seoDescription = $('#txtSeoDescriptionM').val();
                 var seoTitle = $('#txtSeoTitleM').val();
                 var seoKeyWor = $('#txtSeoKeyWordM').val();
-
                 var isshow = $('#ckIsShowM').prop('checked') === true ? 1 : 0;
                 var url = "";
-                debugger;
                 if (parseInt(id) == 0) {
                     url = "/category/add";
                 }
@@ -105,7 +124,9 @@
                     data: {
                         Id: id,
                         Name: name,
+                        NameAscii: nameAscii,
                         ParentId: parentId,
+                        DisplayOrder: displayOrder,
                         SeoDescription: seoDescription,
                         SeoTitle: seoTitle,
                         SeoKeyWord: seoKeyWor,
@@ -115,25 +136,28 @@
                     beforeSend: function () {
                         contansconfigs.startLoading();
                     },
-                    success: function () {
+                    success: function (responds) {
                         if (parseInt(id) == 0) {
-                            contansconfigs.notify('Add page successful', 'success');
+                           // contansconfigs.notify('Add page successful', 'success');
+                            toastr.success('Add page successful');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
                         else {
-                            contansconfigs.notify('Update page successful', 'success');
+                            toastr.success('Update page successful');
+                          //  contansconfigs.notify('Update page successful', 'success');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
                         contansconfigs.stopLoading();
                         LoadData(true);
                     },
-                    error: function () {
-
-                        contansconfigs.notify('Have an error in progress', 'error');
+                    error: function (rp, mess, status) {
+                        toastr.error('Have an error in progress');
+                       // contansconfigs.notify('Have an error in progress', 'error');
                         contansconfigs.stopLoading();
                     }
+
                 });
                 return false;
             }
@@ -145,20 +169,22 @@
             var that = $(this).data('id');
             contansconfigs.confirm('Are you sure to delete?', function () {
                 $.ajax({
-                    type: "POST",
+                    type: "DELETE",
                     url: "/category/remove",
                     data: { id: that },
                     dataType: "json",
                     beforeSend: function () {
                         contansconfigs.startLoading();
                     },
-                    success: function () {
-                        contansconfigs.notify('Delete page successful', 'success');
+                    success: function (responds) {
+                        //contansconfigs.notify('Delete page successful', 'success');
+                        toastr.success('Delete page successful');
                         contansconfigs.stopLoading();
                         LoadData();
                     },
-                    error: function () {
-                        contansconfigs.notify('Have an error in progress', 'error');
+                    error: function (rp, mess, status) {
+                          //contansconfigs.notify('Have an error in progress', 'error');
+                        toastr.error('Have an error in progress');
                         contansconfigs.stopLoading();
                     }
                 });
@@ -190,7 +216,8 @@
                             IsShow: contansconfigs.getStatus(item.isShow)
                         });
                     });
-                    $("#lbl-total-records").text(response.rowCount); // phân trang
+                    //$("#lbl-total-records").text(response.rowCount); // tổng số bản ghi 
+                    $("#lblTotalRecords").text(response.rowCount);
 
                     if (render != undefined) {
                         $('#tbl-content').html(render);
@@ -208,7 +235,8 @@
             },
             error: function (status) {
                 console.log(status);
-                contansconfigs.notify("Đã có lỗi xảy ra", "danger");
+                toastr.success('Đã có lỗi xảy ra');
+               // contansconfigs.notify("Đã có lỗi xảy ra", "danger");
             }
         });
     }
@@ -234,4 +262,10 @@
             }
         });
     }
+    // 
+    $("#ddlShowPage").on('change', function () {
+        contansconfigs.configs.pageSize = $(this).val();
+        contansconfigs.configs.pageIndex = 1;
+        LoadData(true);
+    });
 }

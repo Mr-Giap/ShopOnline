@@ -69,7 +69,7 @@ namespace ShopOnlineWebAdmin.Controllers
             }
             return BadRequest(result.Message);
         }
-        [HttpPost]
+        [HttpDelete]
         public IActionResult Remove(int id)
         {
             var result =  _productService.Remove(id);
