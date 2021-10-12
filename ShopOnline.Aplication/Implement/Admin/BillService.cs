@@ -25,19 +25,29 @@ namespace ShopOnline.Aplication.Implement
             _context = context;
         }
 
-        public async Task<RepontResult> Add(BillViewModel bil)
+        public async Task<RepontResult> Add(BillViewModel bill)
         {
             var resultAdd = new RepontResult();
-            var newCategory = new Bill()
+            var checkId = _context.Bills.Any(x => x.Id == bill.Id);
+            if (checkId != true)
             {
-                UserId = bil.UserId,
-                Status = bil.Status,
-                PaymentsMethod = bil.PaymentsMethod
+                var newCategory = new Bill()
+                {
+                    UserId = bill.UserId,
+                    Status = bill.Status,
+                    PaymentsMethod = bill.PaymentsMethod
 
-            };
-            _context.Bills.Add(newCategory);
-            await _context.SaveChangesAsync();
-            resultAdd.Success = true;
+                };
+                _context.Bills.Add(newCategory);
+                await _context.SaveChangesAsync();
+                resultAdd.Success = true;
+            }
+            else
+            {
+                resultAdd.Success = false;
+                resultAdd.Data = "Not faund get byid category";
+            }
+            
             return resultAdd;
         }
 
@@ -58,14 +68,21 @@ namespace ShopOnline.Aplication.Implement
             return result;
         }
 
-        public async Task<BillViewModel> GetById(int id)
+        public async Task<RepontResult> GetById(int id)
         {
             var takeId = await _context.Bills.FindAsync(id);
+            var resultId = new RepontResult();
             if (takeId != null)
             {
-                return _maper.Map<Bill, BillViewModel>(takeId);
+                resultId.Success = true;
+                resultId.Data = takeId;
             }
-            return null;
+            else
+            {
+                resultId.Success = false;
+                resultId.Data = "Not faund get byid product";
+            }
+            return resultId;
         }
 
         public RepontResult Remove(int id)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ShopOnline.Aplication.ViewModel.Admin;
+using ShopOnline.Aplication.ViewModel.Client;
 using ShopOnline.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,12 @@ namespace ShopOnline.Aplication.Automapper
            .ConstructUsing(c => new AppRole(c.Id,c.Name,c.DateCreated));
             // produc
             CreateMap<ProductViewModel, Product>()
-            .ConstructUsing(p => new Product(p.Id, p.Name, p.Price, p.PricePromotion,p.NameAscii,
-            p.Description, p.Amount,p.IsShow,p.DisplayOrder,p.SeoDescription,p.SeoTitle,p.SeoKeyWord));
+            .ConstructUsing(p => new Product(p.Id, p.Name, p.Price, p.PricePromotion, p.NameAscii,
+            p.Description, p.Amount, p.IsShow, p.DisplayOrder, p.SeoDescription, p.SeoTitle, p.SeoKeyWord));
             //category
             CreateMap<CategoryViewModel, Category>()
-            .ConstructUsing(c => new Category(c.Id,c.Name,c.NameAscii, c.ParentId,c.IsShow,c.DisplayOrder,
-            c.SeoDescription,c.SeoTitle,c.SeoKeyWord));
+            .ConstructUsing(c => new Category(c.Id, c.Name, c.NameAscii, c.ParentId, c.IsShow, c.DisplayOrder,
+            c.SeoDescription, c.SeoTitle, c.SeoKeyWord));
             //Slide
             CreateMap<SlideViewModel, Slide>()
                 .ConstructUsing(s => new Slide(s.Id,s.IsShow));
@@ -40,6 +41,12 @@ namespace ShopOnline.Aplication.Automapper
                .ConstructUsing(c => new Tag(c.Id, c.Name));
             CreateMap<BillViewModel, Bill>()
               .ConstructUsing(b => new Bill(b.Id,b.UserId,b.Status,b.PaymentsMethod));
+
+            //Client
+            CreateMap<ProductViewModelClient, Product>()
+            .ConstructUsing(pl => new Product(pl.Name , pl.Price, pl.PricePromotion,
+            pl.Description, pl.SeoDescription, pl.SeoTitle, pl.SeoKeyWord));
+
         }
     }
 }

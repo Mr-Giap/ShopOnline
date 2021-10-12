@@ -1,4 +1,4 @@
-﻿var categoryController = function () {
+﻿var colorController = function () {
     var loading = false;
     this.Initialize = function () {
         if (loading == false) {
@@ -9,7 +9,7 @@
         }
         LoadData();
     }
-   
+
     function InitClick() {
         //Init validation
         $('#frmMaintainance').validate({
@@ -18,43 +18,12 @@
             lang: 'en',
             rules: {
                 txtNameM: { required: true },
-                txtNameAsciiM: { required: true },
-                txtParentIdM: { required: true },
-                txtDisplayOrderM: { required: true },
-                txtSeoDescriptionM: { required: true },
-                txtSeoTitleM: { required: true },
-                txtSeoKeyWordM: { required: true },
             },
             messages: {
                 txtNameM: {
                     required: "Tên không được bổ trống",
                     noSpace: "Nhập tên sai định dạng"
-                },
-                txtNameAsciiM: {
-                    required: "Tên không được bổ trống",
-                    noSpace: "Nhập tên sai định dạng"
-                },
-                txtParentIdM: {
-                    required: "Tên định danh không được bổ trống",
-                    noSpace: "Nhập tên sai định dạng"
-                    //number: "Vui lòng nhập đúng định dạng"
-                },
-                txtDisplayOrderM: {
-                    required: "Tên không được bổ trống",
-                    number: "Vui lòng nhập đúng định dạng"
-                },
-                txtSeoDescriptionM: {
-                    required: "Sự nhiêu tả không được bổ trống",
-                    noSpace: "Nhập  sai định dạng"
-                },
-                txtSeoTitleM: {
-                    required: "Nội dung không được bổ trống",
-                    noSpace: "Nhập  sai định dạng"
-                },
-                txtSeoKeyWordM: {
-                    required: "Nội dung không được bổ trống",
-                    noSpace: "Nhập  sai định dạng"
-                },
+                }
             }
         });
 
@@ -69,31 +38,24 @@
             console.log(that);
             $.ajax({
                 type: "GET",
-                url: "/category/getbyid",
+                url: "/color/getbyid",
                 data: { id: that },
                 dataType: "json",
                 beforeSend: function () {
                     contansconfigs.startLoading();
                 },
-                success: function (response,data) {
+                success: function (response, data) {
                     var data = response;
                     debugger;
                     console.log(response, data);
                     $('#hidIdM').val(data.data.id);
                     $('#txtNameM').val(data.data.name);
-                    $('#txtNameAsciiM').val(data.data.nameAscii);
-                    $('#txtParentIdM').val(data.data.parentId);
-                    $('#txtDisplayOrderM').val(data.data.displayOrder);
-                    $('#txtSeoDescriptionM').val(data.data.seoDescription);
-                    $('#txtSeoTitleM').val(data.data.seoTitle);
-                    $('#txtSeoKeyWordM').val(data.data.seoKeyWord);
-                    $('#ckIsShowM').prop('checked', data.data.status === 1);
                     $('#modal-add-edit').modal('show');
                     contansconfigs.stopLoading();
                 },
                 error: function () {
                     toastr.error('Đã có lỗi xảy ra');
-                   //contansconfigs.notify('Có lỗi xảy ra', 'error');
+                    //contansconfigs.notify('Có lỗi xảy ra', 'error');
                     contansconfigs.stopLoading();
                 }
             });
@@ -104,33 +66,19 @@
                 e.preventDefault();
                 var id = $('#hidIdM').val();
                 var name = $('#txtNameM').val();
-                var nameAscii = $('#txtNameAsciiM').val();
-                var parentId = $('#txtParentIdM').val();
-                var displayOrder = $('#txtDisplayOrderM').val();
-                var seoDescription = $('#txtSeoDescriptionM').val();
-                var seoTitle = $('#txtSeoTitleM').val();
-                var seoKeyWor = $('#txtSeoKeyWordM').val();
-                var isshow = $('#ckIsShowM').prop('checked') === true ? 1 : 0;
                 var url = "";
                 if (parseInt(id) == 0) {
-                    url = "/category/add";
+                    url = "/color/add";
                 }
                 else {
-                    url = "/category/update";
+                    url = "/color/update";
                 }
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: {
                         Id: id,
-                        Name: name,
-                        NameAscii: nameAscii,
-                        ParentId: parentId,
-                        DisplayOrder: displayOrder,
-                        SeoDescription: seoDescription,
-                        SeoTitle: seoTitle,
-                        SeoKeyWord: seoKeyWor,
-                        IsShow: isshow,
+                        Name: name
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -138,14 +86,14 @@
                     },
                     success: function (responds) {
                         if (parseInt(id) == 0) {
-                           // contansconfigs.notify('Add page successful', 'success');
+                            // contansconfigs.notify('Add page successful', 'success');
                             toastr.success('Add page successful');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
                         else {
                             toastr.success('Update page successful');
-                          //  contansconfigs.notify('Update page successful', 'success');
+                            //  contansconfigs.notify('Update page successful', 'success');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
@@ -154,7 +102,7 @@
                     },
                     error: function (rp, mess, status) {
                         toastr.error('Have an error in progress');
-                       // contansconfigs.notify('Have an error in progress', 'error');
+                        // contansconfigs.notify('Have an error in progress', 'error');
                         contansconfigs.stopLoading();
                     }
 
@@ -170,7 +118,7 @@
             contansconfigs.confirm('Are you sure to delete?', function () {
                 $.ajax({
                     type: "DELETE",
-                    url: "/category/remove",
+                    url: "/color/remove",
                     data: { id: that },
                     dataType: "json",
                     beforeSend: function () {
@@ -183,7 +131,7 @@
                         LoadData();
                     },
                     error: function (rp, mess, status) {
-                          //contansconfigs.notify('Have an error in progress', 'error');
+                        //contansconfigs.notify('Have an error in progress', 'error');
                         toastr.error('Have an error in progress');
                         contansconfigs.stopLoading();
                     }
@@ -194,7 +142,7 @@
     function LoadData(isPageChanged) {
         $.ajax({
             type: "GET",
-            url: "/category/getallpagging",
+            url: "/color/getallpagging",
             data: {
                 keyword: $('#txt-search-keyword').val(),
                 page: contansconfigs.configs.pageIndex,
@@ -211,9 +159,7 @@
                     $.each(response.results, function (i, item) {
                         render += Mustache.render(template, {
                             Id: item.id,
-                            Name: item.name,
-                            ParentId: item.parentId,
-                            IsShow: contansconfigs.getStatus(item.isShow)
+                            Name: item.name
                         });
                     });
                     //$("#lbl-total-records").text(response.rowCount); // tổng số bản ghi 
@@ -236,7 +182,7 @@
             error: function (status) {
                 console.log(status);
                 toastr.error('Đã có lỗi xảy ra');
-               // contansconfigs.notify("Đã có lỗi xảy ra", "danger");
+                // contansconfigs.notify("Đã có lỗi xảy ra", "danger");
             }
         });
     }

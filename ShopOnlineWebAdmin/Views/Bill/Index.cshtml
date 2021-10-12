@@ -1,6 +1,113 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Quản Lý Màu sản phẩm</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="javascripts:void(0);">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Quản Lý Màu sản phẩm</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="button" id="btn-create" class="btn  btn-success">Thêm mới</button>
+                            @*<h3 class="card-title">Fixed Header Table</h3>*@
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" id="txt-search-keyword" name="table_search" class="form-control float-right" placeholder="Tìm kiếm">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                            <table class="table table-head-fixed text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl-content">
+                                    <!--Gọi từ js App/Controller/Product -->
+                                </tbody>
+
+                            </table>
+                            <!-- Phân trang -->
+                            <div class="card-footer clearfix">
+                                <div class="pagination pagination-sm m-0 float-left">
+                                    <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                                        <select id="ddlShowPage">
+                                            <option value="5" selected="selected">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span class="item-per-page">
+                                            bản ghi/trang.
+                                        </span>
+                                        Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
+                                    </div>
+                                </div>
+                                <div class="pagination pagination-sm m-0 float-right">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                        <ul id="paginationUL"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end phân trang -->
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<script id="table-template" type="x-tmpl-mustache">
+        <tr>
+            <td>{{Id}}</td>
+            <td>{{UserId}}</td>
+            <td>{{Status}}</td>
+            <td>{{PaymentsMethod}}</td>
+            <td>
+                <a href="javascript:void(0);" data-id="{{Id}}" title="Sửa" class="btn-edit"><i class="fas fa-edit"></i></a>
+                <a href="javascript:void(0);" data-id="{{Id}}" title="Xóa" class="btn-delete"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+</script>
+<!-- /.content-wrapper -->
+@await Html.PartialAsync("_AddEditModelBill")
+@section Scripts {
+    <script src="~/Content/js/App/Controllers/Bill/index.js"></script>
+    <script>
+        var bill = new billController();
+        bill.Initialize();
+    </script>
 }
-<h1>Đây là bảng Bill</h1>

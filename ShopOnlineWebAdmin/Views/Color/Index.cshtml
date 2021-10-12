@@ -1,19 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản Lý Sản Phẩm</h1>
+                    <h1>Quản Lý Hóa đơn</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="javascripts:void(0);">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản Lý Sản Phẩm</li>
+                        <li class="breadcrumb-item active">Quản Lý Hóa đơn</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <button type="button" id="btn-create" class="btn btn-success">Thêm mới</button>
+                            <button type="button" id="btn-create" class="btn  btn-success">Thêm mới</button>
                             @*<h3 class="card-title">Fixed Header Table</h3>*@
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -49,10 +46,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                        <th>Trạng thái</th>
-                                        <th></th> 
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl-content">
@@ -100,9 +94,6 @@
         <tr>
             <td>{{Id}}</td>
             <td>{{Name}}</td>
-            <td>{{Price}}</td>
-            <td>{{Amount}}</td>
-            <td>{{{IsShow}}}</td>
             <td>
                 <a href="javascript:void(0);" data-id="{{Id}}" title="Sửa" class="btn-edit"><i class="fas fa-edit"></i></a>
                 <a href="javascript:void(0);" data-id="{{Id}}" title="Xóa" class="btn-delete"><i class="fas fa-trash-alt"></i></a>
@@ -110,11 +101,12 @@
         </tr>
 </script>
 <!-- /.content-wrapper -->
-@await Html.PartialAsync("_AddEditModel")
+@await Html.PartialAsync("_AddEditModelColor")
 @section Scripts {
-    <script src="~/Content/js/App/Controllers/Product/index.js"></script>
+
+    <script src="~/Content/js/App/Controllers/Color/index.js"></script>
     <script>
-        var product = new productController();
-        product.Initialize();
+        var color = new colorController();
+        color.Initialize();
     </script>
 }

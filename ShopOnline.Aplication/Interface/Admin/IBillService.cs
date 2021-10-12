@@ -13,7 +13,7 @@ namespace ShopOnline.Aplication.Interface.Admin
         Task<RepontResult> Add(BillViewModel bil);
         Task<RepontResult> Update(BillViewModel bil);
         PageResult<BillViewModel> GetAllPagging(string keyword, int page, int pageSize);
-        Task<BillViewModel> GetById(int id);
+        Task<RepontResult> GetById(int id);
         RepontResult Remove(int id);
     }
 }

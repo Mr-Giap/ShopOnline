@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShopOnline.Aplication\ShopOnline.Aplication.csproj" />
+    <ProjectReference Include="..\ShopOnlineWebAdmin\ShopOnlineWebAdmin.csproj" />
   </ItemGroup>
 
 </Project>

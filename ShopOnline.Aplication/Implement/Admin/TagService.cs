@@ -26,14 +26,24 @@ namespace ShopOnline.Aplication.Implement
 
         public async Task<RepontResult> Add(TagViewModel tag)
         {
+            var nameChange = _context.Tags.Any(x => x.Name == tag.Name);
             var result = new RepontResult();
-            var newTag = new Tag()
+            if (nameChange != true)
             {
-                Name = tag.Name
-            };
-            _context.Tags.Add(newTag);
-            await _context.SaveChangesAsync();
-            result.Success = true;
+                var newTag = new Tag()
+                {
+                    Name = tag.Name
+                };
+                _context.Tags.Add(newTag);
+                await _context.SaveChangesAsync();
+                result.Success = true;
+            }
+            else
+            {
+                result.Success = false;
+                result.Data = "Not faund get byid category";
+            }
+           
             return result;
         }
 

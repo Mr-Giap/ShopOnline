@@ -67,7 +67,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = _tagService.Remove(id);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }

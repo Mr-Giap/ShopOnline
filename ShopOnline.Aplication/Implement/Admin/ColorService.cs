@@ -57,15 +57,21 @@ namespace ShopOnline.Aplication.Implement
             return result;
         }
 
-        public async Task<ColorViewModel> GetById(int id)
+        public async Task<RepontResult> GetById(int id)
         {
             var takeId = await _context.Colors.FindAsync(id);
+            var resultId = new RepontResult();
             if (takeId != null)
             {
-                return _maper.Map<Color, ColorViewModel>(takeId);
-
+                resultId.Success = true;
+                resultId.Data = takeId;
             }
-            return null;
+            else
+            {
+                resultId.Success = false;
+                resultId.Data = "Not faund get byid product";
+            }
+            return resultId;
         }
 
         public RepontResult Remove(int id)

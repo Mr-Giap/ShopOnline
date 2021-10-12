@@ -1,4 +1,4 @@
-﻿var categoryController = function () {
+﻿var billController = function () {
     var loading = false;
     this.Initialize = function () {
         if (loading == false) {
@@ -9,7 +9,7 @@
         }
         LoadData();
     }
-   
+
     function InitClick() {
         //Init validation
         $('#frmMaintainance').validate({
@@ -17,13 +17,9 @@
             ignore: [],
             lang: 'en',
             rules: {
-                txtNameM: { required: true },
-                txtNameAsciiM: { required: true },
+                txtStatusM: { required: true },
                 txtParentIdM: { required: true },
-                txtDisplayOrderM: { required: true },
-                txtSeoDescriptionM: { required: true },
-                txtSeoTitleM: { required: true },
-                txtSeoKeyWordM: { required: true },
+                txtDisplayOrderM: { required: true }
             },
             messages: {
                 txtNameM: {
@@ -75,25 +71,20 @@
                 beforeSend: function () {
                     contansconfigs.startLoading();
                 },
-                success: function (response,data) {
+                success: function (response, data) {
                     var data = response;
                     debugger;
                     console.log(response, data);
                     $('#hidIdM').val(data.data.id);
-                    $('#txtNameM').val(data.data.name);
-                    $('#txtNameAsciiM').val(data.data.nameAscii);
-                    $('#txtParentIdM').val(data.data.parentId);
-                    $('#txtDisplayOrderM').val(data.data.displayOrder);
-                    $('#txtSeoDescriptionM').val(data.data.seoDescription);
-                    $('#txtSeoTitleM').val(data.data.seoTitle);
-                    $('#txtSeoKeyWordM').val(data.data.seoKeyWord);
+                    var e = document.getElementById("enumPaymentsMethod");
+                    var value = e.options[e.selectedIndex].value;
                     $('#ckIsShowM').prop('checked', data.data.status === 1);
                     $('#modal-add-edit').modal('show');
                     contansconfigs.stopLoading();
                 },
                 error: function () {
                     toastr.error('Đã có lỗi xảy ra');
-                   //contansconfigs.notify('Có lỗi xảy ra', 'error');
+                    //contansconfigs.notify('Có lỗi xảy ra', 'error');
                     contansconfigs.stopLoading();
                 }
             });
@@ -138,14 +129,14 @@
                     },
                     success: function (responds) {
                         if (parseInt(id) == 0) {
-                           // contansconfigs.notify('Add page successful', 'success');
+                            // contansconfigs.notify('Add page successful', 'success');
                             toastr.success('Add page successful');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
                         else {
                             toastr.success('Update page successful');
-                          //  contansconfigs.notify('Update page successful', 'success');
+                            //  contansconfigs.notify('Update page successful', 'success');
                             $('#modal-add-edit').modal('hide');
                             //resetFormMaintainance();
                         }
@@ -154,7 +145,7 @@
                     },
                     error: function (rp, mess, status) {
                         toastr.error('Have an error in progress');
-                       // contansconfigs.notify('Have an error in progress', 'error');
+                        // contansconfigs.notify('Have an error in progress', 'error');
                         contansconfigs.stopLoading();
                     }
 
@@ -183,7 +174,7 @@
                         LoadData();
                     },
                     error: function (rp, mess, status) {
-                          //contansconfigs.notify('Have an error in progress', 'error');
+                        //contansconfigs.notify('Have an error in progress', 'error');
                         toastr.error('Have an error in progress');
                         contansconfigs.stopLoading();
                     }
@@ -211,9 +202,9 @@
                     $.each(response.results, function (i, item) {
                         render += Mustache.render(template, {
                             Id: item.id,
-                            Name: item.name,
-                            ParentId: item.parentId,
-                            IsShow: contansconfigs.getStatus(item.isShow)
+                            UserId: item.name,
+                            Status: item.parentId,
+                            PaymentsMethod: item.parentId
                         });
                     });
                     //$("#lbl-total-records").text(response.rowCount); // tổng số bản ghi 
@@ -236,7 +227,7 @@
             error: function (status) {
                 console.log(status);
                 toastr.error('Đã có lỗi xảy ra');
-               // contansconfigs.notify("Đã có lỗi xảy ra", "danger");
+                // contansconfigs.notify("Đã có lỗi xảy ra", "danger");
             }
         });
     }

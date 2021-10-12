@@ -31,6 +31,16 @@ namespace ShopOnline.Data.Entities
             SeoTitle = seoTitle;
             SeoKeyWord = seoKeyWord;
         }
+        public Product(string name, decimal price, decimal pricePromotion, string  description, string seoDescription, string seoTitle, string seoKeyWord)
+        {
+            Name = name;
+            Price = price;
+            PricePromotion = pricePromotion;
+            Description = description;
+            SeoDescription = seoDescription;
+            SeoTitle = seoTitle;
+            SeoKeyWord = seoKeyWord;
+        }
 
         public string Name { get; set; }
         public decimal Price { get; set; }

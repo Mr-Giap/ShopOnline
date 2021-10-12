@@ -47,9 +47,9 @@ namespace ShopOnlineWebAdmin.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet]
-        public IActionResult GetAllPagging(string keyword, int pageSize, int pageIndex)
+        public IActionResult GetAllPagging(string keyword, int page, int pageSize)
         {
-            var color = _colorService.GetAllPagging(keyword, pageSize, pageIndex);
+            var color = _colorService.GetAllPagging(keyword, page, pageSize);
             if (color != null)
             {
                 return Ok();
@@ -72,7 +72,7 @@ namespace ShopOnlineWebAdmin.Controllers
             var result = _colorService.Remove(id);
             if (result != null)
             {
-                return Ok();
+                return new OkObjectResult(result);
             }
             return BadRequest(result.Message);
         }

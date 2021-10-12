@@ -29,7 +29,7 @@ namespace ShopOnline.Aplication.Implement
         {
             var nameChange = _context.Products.Any(x => x.Name != product.Name);
             var resultMess = new RepontResult();
-            if (nameChange  == true )
+            if (nameChange  != true )
             {
                 var newProduct = new Product()
                 {

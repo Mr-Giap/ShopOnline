@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ShopOnline.Aplication.ViewModel.Admin;
+using ShopOnline.Aplication.ViewModel.Client;
 using ShopOnline.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,14 @@ namespace ShopOnline.Aplication.Automapper
             CreateMap<Product, ProductViewModel>();
             CreateMap<Color, ColorViewModel>();
             CreateMap<Tag, TagViewModel>();
-
+            //Client
+            CreateMap<Product, ProductViewModelClient>();
+            CreateMap<AppUser, UserModel>();
+            CreateMap<Category, CategoryViewModelClient>();
+            CreateMap<Bill, BillViewModelClient>();
+            CreateMap<Color, ColorViewModelClient>();
+            CreateMap<Tag, TagViewModelClient>();
+            //CreateMap<Slide, SlideViewModelClient>();
         }
     }
 }

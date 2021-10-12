@@ -1,0 +1,48 @@
+﻿@model ShopOnline.Aplication.ViewModel.Admin.BillViewModel
+
+<div id="modal-add-edit" class="bootbox modal fade modal-darkorange in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModal">Thêm/Sửa Hóa đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="horizontal-form ">
+                    <form class="form-horizontal" role="form" id="frmMaintainance">
+                        <!--frmMaintainance validate from-->
+                        <div class="form-group row">
+                            <input type="hidden" id="hidIdM" value="0" /> <!--Dùng để biết khi nào add khi nào update-->
+                            <label asp-for="@Model.Status" class="col-md-2 control-label">Trạng thái hóa đơn</label>
+                            <div class="col-md-10">
+                                <select asp-for="@Model.Status" id="enumStatus">
+                                    @*asp-items="@Html.GetEnumSelectList<StatusBill>()*@
+                                    <option selected="selected" value="InActive">InActive</option>
+                                    <option value="Active">Active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="@Model.Status" class="col-md-2 control-label">Trạng thái thanh toán</label>
+                            <div class="col-md-10">
+                                <select id="enumPaymentsMethod">
+                                    <option selected="selected" value="Cash">Cash</option>
+                                    <option value="Atm">Atm</option>
+                                    <option value="Visa">Visa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="btnSaveM" class="btn btn-success">Lưu</button>
+                                <button type="button" id="btnCancelM" data-dismiss="modal" class="btn btn-danger">Hủy</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ShopOnline.Aplication.Implement;
+using ShopOnline.Aplication.Implement.Client;
 using ShopOnline.Aplication.Interface.Admin;
+using ShopOnline.Aplication.Interface.Client;
 using ShopOnline.Data.Entities;
 using ShopOnline.DataEF;
 using System;
@@ -79,21 +81,34 @@ namespace ShopOnlineAPI
             //services
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-            services.AddScoped<IProductService, ProductService>();
+          
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IBillService, BillService>();
             services.AddScoped<IColorService, ColorService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ISlideService, SlideService>();
+            //client
+            services.AddScoped<IProductServiceClient, ProductServiceClient>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ICategoryServiceClient, CategoryServiceClient>();
+            services.AddScoped<IBillServiceClient, BillServiceClient>();
+            services.AddScoped<IColorServiceClient, ColorServiceClient>();
+            services.AddScoped<ITagServiceClient, TagServiceClient>();
+
 
             //services.AddDatabaseDeveloperPageExceptionFilter();
             /*services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<AppDbContext>();*/
             services.AddRazorPages();
             services.AddControllers();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopOnlineAPI", Version = "v1" });
+            //});
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopOnlineAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
         }
 
@@ -103,9 +118,14 @@ namespace ShopOnlineAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                //app.UseSwagger();
+                app.UseSwagger(c =>
+                {
+                    c.RouteTemplate = "/swagger/{documentName}/swagger.json";
+                });
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopOnlineAPI v1"));
             }
+
 
             app.UseHttpsRedirection();
 

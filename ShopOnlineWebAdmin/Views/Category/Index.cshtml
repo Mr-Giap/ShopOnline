@@ -6,20 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                   <button type="button" id="btn-create" class="btn btn-block btn-success">Thêm mới</button>
-                   <div class="input-group input-group-sm" style="width: 150px;">
-                       <input type="text" name="table_search" class="form-control form-control-navbar" placeholder="Tìm kiếm">
-                       <div class="input-group-append">
-                           <button type="submit" class="btn btn-default">
-                               <i class="fas fa-search"></i>
-                           </button>
-                       </div>
-                   </div>
+                    <h1>Quản Lý Danh mục Sản Phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản lý danh mục sản phẩm</li>
+                        <li class="breadcrumb-item"><a href="javascripts:void(0);">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Quản Lý Danh mục Sản Phẩm</li>
                     </ol>
                 </div>
             </div>
@@ -28,56 +20,74 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Danh mục sản phẩm</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="jsgrid">
-                    <div class="jsgrid-grid-header jsgrid-header-scrollbar">
-                        <table class="table table-bordered">
-                            <tr class="jsgrid-header-row">
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Danh sách ID cha</th>
-                                <th>Trạng thái</th>
-                            </tr>
-                            <tbody id="tbl-content">
-                                <tr>
-                                    <!-- Dùng js bên dưới để add  -->
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- Phân trang -->
-                        <div class="card-footer clearfix">
-                            <div class="pagination pagination-sm m-0 float-left">
-                                <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
-                                    <select id="ddlShowPage">
-                                        <option value="5" selected="selected">5</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                    <span class="item-per-page">
-                                        bản ghi/trang.
-                                    </span>
-                                    Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
-                                </div>
-                            </div>
-                            <div class="pagination pagination-sm m-0 float-right">
-                                <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
-                                    <ul id="paginationUL"></ul>
+        <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="button" id="btn-create" class="btn btn-success">Thêm mới</button>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" id="txt-search-keyword" name="table_search" class="form-control float-right" placeholder="Tìm kiếm">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end phân trang -->
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                            <table class="table table-head-fixed text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th>Danh mục ID cha</th>
+                                        <th>Trạng thái</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl-content">
+                                    <!--Gọi từ js App/Controller/Product -->
+                                </tbody>
+
+                            </table>
+                            <!-- Phân trang -->
+                            <div class="card-footer clearfix">
+                                <div class="pagination pagination-sm m-0 float-left">
+                                    <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                                        <select id="ddlShowPage">
+                                            <option value="5" selected="selected">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span class="item-per-page">
+                                            bản ghi/trang.
+                                        </span>
+                                        Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
+                                    </div>
+                                </div>
+                                <div class="pagination pagination-sm m-0 float-right">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                        <ul id="paginationUL"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end phân trang -->
+                        </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.row -->
+
+        </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
